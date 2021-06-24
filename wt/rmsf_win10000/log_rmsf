@@ -1,0 +1,4786 @@
+nohup: ignoring input
+                         :-)  G  R  O  M  A  C  S  (-:
+
+        Getting the Right Output Means no Artefacts in Calculating Stuff
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf1.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   0       First frame (ps) to read from trajectory
+-e           time   10000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       1 time   10.000   Reading frame       2 time   20.000   Reading frame       3 time   30.000   Reading frame       4 time   40.000   Reading frame       5 time   50.000   Reading frame       6 time   60.000   Reading frame       7 time   70.000   Reading frame       8 time   80.000   Reading frame       9 time   90.000   Reading frame      10 time  100.000   Reading frame      11 time  110.000   Reading frame      12 time  120.000   Reading frame      13 time  130.000   Reading frame      14 time  140.000   Reading frame      15 time  150.000   Reading frame      16 time  160.000   Reading frame      17 time  170.000   Reading frame      18 time  180.000   Reading frame      19 time  190.000   Reading frame      20 time  200.000   Reading frame      30 time  300.000   Reading frame      40 time  400.000   Reading frame      50 time  500.000   Reading frame      60 time  600.000   Reading frame      70 time  700.000   Reading frame      80 time  800.000   Reading frame      90 time  900.000   Reading frame     100 time 1000.000   Reading frame     110 time 1100.000   Reading frame     120 time 1200.000   Reading frame     130 time 1300.000   Reading frame     140 time 1400.000   Reading frame     150 time 1500.000   Reading frame     160 time 1600.000   Reading frame     170 time 1700.000   Reading frame     180 time 1800.000   Reading frame     190 time 1900.000   Reading frame     200 time 2000.000   Reading frame     300 time 3000.000   Reading frame     400 time 4000.000   Reading frame     500 time 5000.000   Reading frame     600 time 6000.000   Reading frame     700 time 7000.000   Reading frame     800 time 8000.000   Reading frame     900 time 9000.000   Reading frame    1000 time 10000.000   Last frame       1000 time 10000.000   
+
+gcq#94: "Proceed, With Fingers Crossed" (TeX)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf1.xvg -> rmsf1.oct
+   10   0.0940
+   11   0.0648
+   12   0.0498
+   13   0.0469
+   14   0.0426
+   15   0.0420
+   16   0.0404
+   17   0.0458
+   18   0.0714
+   19   0.1072
+   20   0.1801
+   21   0.1725
+   22   0.1366
+   23   0.0748
+   24   0.0609
+   25   0.0523
+   26   0.0553
+   27   0.0571
+   28   0.0490
+   29   0.0488
+   30   0.0431
+   31   0.0445
+   32   0.0411
+   33   0.0479
+   34   0.0512
+   35   0.0627
+   36   0.0898
+   37   0.1299
+   38   0.1399
+   39   0.1162
+   40   0.1029
+   41   0.0757
+   42   0.0702
+   43   0.0638
+   44   0.0557
+   45   0.0526
+   46   0.0530
+   47   0.0547
+   48   0.0512
+   49   0.0465
+   50   0.0606
+   51   0.0705
+   52   0.0688
+   53   0.0522
+   54   0.0506
+   55   0.0487
+   56   0.0700
+   57   0.0842
+   58   0.0724
+   59   0.0756
+   60   0.0853
+   61   0.0922
+   62   0.1210
+   63   0.1084
+   64   0.0755
+   65   0.0759
+   66   0.0717
+   67   0.0656
+   68   0.0510
+   69   0.0427
+   70   0.0451
+   71   0.0425
+   72   0.0438
+   73   0.0443
+   74   0.0519
+   75   0.0503
+   76   0.0554
+   77   0.0651
+   78   0.0606
+   79   0.0590
+   80   0.0741
+   81   0.0861
+   82   0.0879
+   83   0.0894
+   84   0.0763
+   85   0.0778
+   86   0.0805
+   87   0.0686
+   88   0.0557
+   89   0.0582
+   90   0.0542
+   91   0.0630
+   92   0.0668
+   93   0.0499
+   94   0.0446
+   95   0.0441
+   96   0.0520
+   97   0.0586
+   98   0.0647
+   99   0.1064
+  100   0.1100
+  101   0.1058
+  102   0.0859
+  103   0.0675
+  104   0.0588
+  105   0.0496
+  106   0.0480
+  107   0.0480
+  108   0.0470
+  109   0.0474
+  110   0.0475
+  111   0.0506
+  112   0.0550
+  113   0.0580
+  114   0.0536
+  115   0.0536
+  116   0.0535
+  117   0.0486
+  118   0.0469
+  119   0.0461
+  120   0.0516
+  121   0.0589
+  122   0.0663
+  123   0.0786
+  124   0.0987
+  125   0.1202
+   10   0.1262
+   11   0.0697
+   12   0.0521
+   13   0.0510
+   14   0.0471
+   15   0.0458
+   16   0.0419
+   17   0.0438
+   18   0.0417
+   19   0.0565
+   20   0.0685
+   21   0.0739
+   22   0.0670
+   23   0.0709
+   24   0.0609
+   25   0.0499
+   26   0.0542
+   27   0.0565
+   28   0.0468
+   29   0.0478
+   30   0.0428
+   31   0.0439
+   32   0.0408
+   33   0.0484
+   34   0.0511
+   35   0.0654
+   36   0.0930
+   37   0.1305
+   38   0.1454
+   39   0.1202
+   40   0.1070
+   41   0.0818
+   42   0.0730
+   43   0.0647
+   44   0.0557
+   45   0.0547
+   46   0.0537
+   47   0.0607
+   48   0.0532
+   49   0.0476
+   50   0.0602
+   51   0.0740
+   52   0.0727
+   53   0.0547
+   54   0.0565
+   55   0.0581
+   56   0.0990
+   57   0.1102
+   58   0.0823
+   59   0.0753
+   60   0.0873
+   61   0.0850
+   62   0.1136
+   63   0.1107
+   64   0.0839
+   65   0.0787
+   66   0.0756
+   67   0.0665
+   68   0.0524
+   69   0.0434
+   70   0.0474
+   71   0.0440
+   72   0.0465
+   73   0.0534
+   74   0.0543
+   75   0.0608
+   76   0.0781
+   77   0.0834
+   78   0.0627
+   79   0.0656
+   80   0.1068
+   81   0.1227
+   82   0.0979
+   83   0.0945
+   84   0.0869
+   85   0.0935
+   86   0.0698
+   87   0.0630
+   88   0.0608
+   89   0.0500
+   90   0.0505
+   91   0.0594
+   92   0.0677
+   93   0.0528
+   94   0.0472
+   95   0.0457
+   96   0.0517
+   97   0.0558
+   98   0.0836
+   99   0.1367
+  100   0.1553
+  101   0.2006
+  102   0.2252
+  103   0.1142
+  104   0.0614
+  105   0.0471
+  106   0.0477
+  107   0.0465
+  108   0.0452
+  109   0.0451
+  110   0.0409
+  111   0.0454
+  112   0.0451
+  113   0.0490
+  114   0.0487
+  115   0.0521
+  116   0.0535
+  117   0.0442
+  118   0.0474
+  119   0.0460
+  120   0.0480
+  121   0.0568
+  122   0.0813
+  123   0.1295
+  124   0.2324
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                      GROup of MAchos and Cynical Suckers
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf2.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   10000   First frame (ps) to read from trajectory
+-e           time   20000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 10000.000   Reading frame       1 time 10010.000   Reading frame       2 time 10020.000   Reading frame       3 time 10030.000   Reading frame       4 time 10040.000   Reading frame       5 time 10050.000   Reading frame       6 time 10060.000   Reading frame       7 time 10070.000   Reading frame       8 time 10080.000   Reading frame       9 time 10090.000   Reading frame      10 time 10100.000   Reading frame      11 time 10110.000   Reading frame      12 time 10120.000   Reading frame      13 time 10130.000   Reading frame      14 time 10140.000   Reading frame      15 time 10150.000   Reading frame      16 time 10160.000   Reading frame      17 time 10170.000   Reading frame      18 time 10180.000   Reading frame      19 time 10190.000   Reading frame      20 time 10200.000   Reading frame      30 time 10300.000   Reading frame      40 time 10400.000   Reading frame      50 time 10500.000   Reading frame      60 time 10600.000   Reading frame      70 time 10700.000   Reading frame      80 time 10800.000   Reading frame      90 time 10900.000   Reading frame     100 time 11000.000   Reading frame     110 time 11100.000   Reading frame     120 time 11200.000   Reading frame     130 time 11300.000   Reading frame     140 time 11400.000   Reading frame     150 time 11500.000   Reading frame     160 time 11600.000   Reading frame     170 time 11700.000   Reading frame     180 time 11800.000   Reading frame     190 time 11900.000   Reading frame     200 time 12000.000   Reading frame     300 time 13000.000   Reading frame     400 time 14000.000   Reading frame     500 time 15000.000   Reading frame     600 time 16000.000   Reading frame     700 time 17000.000   Reading frame     800 time 18000.000   Reading frame     900 time 19000.000   Reading frame    1000 time 20000.000   Last frame       1000 time 20000.000   
+
+gcq#94: "Proceed, With Fingers Crossed" (TeX)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf2.xvg -> rmsf2.oct
+   10   0.0869
+   11   0.0587
+   12   0.0441
+   13   0.0423
+   14   0.0414
+   15   0.0438
+   16   0.0413
+   17   0.0441
+   18   0.0454
+   19   0.0591
+   20   0.0701
+   21   0.0776
+   22   0.0765
+   23   0.0738
+   24   0.0582
+   25   0.0500
+   26   0.0534
+   27   0.0581
+   28   0.0482
+   29   0.0461
+   30   0.0425
+   31   0.0449
+   32   0.0432
+   33   0.0509
+   34   0.0532
+   35   0.0661
+   36   0.0964
+   37   0.1352
+   38   0.1463
+   39   0.1189
+   40   0.1158
+   41   0.0836
+   42   0.0757
+   43   0.0669
+   44   0.0552
+   45   0.0531
+   46   0.0519
+   47   0.0541
+   48   0.0525
+   49   0.0459
+   50   0.0603
+   51   0.0682
+   52   0.0642
+   53   0.0498
+   54   0.0488
+   55   0.0429
+   56   0.0564
+   57   0.0723
+   58   0.0606
+   59   0.0683
+   60   0.0847
+   61   0.0864
+   62   0.0993
+   63   0.0895
+   64   0.0685
+   65   0.0688
+   66   0.0658
+   67   0.0627
+   68   0.0498
+   69   0.0427
+   70   0.0484
+   71   0.0452
+   72   0.0487
+   73   0.0468
+   74   0.0488
+   75   0.0571
+   76   0.0723
+   77   0.0757
+   78   0.0599
+   79   0.0623
+   80   0.0874
+   81   0.1037
+   82   0.0956
+   83   0.0894
+   84   0.0750
+   85   0.0832
+   86   0.0611
+   87   0.0517
+   88   0.0515
+   89   0.0451
+   90   0.0453
+   91   0.0613
+   92   0.0756
+   93   0.0568
+   94   0.0490
+   95   0.0429
+   96   0.0473
+   97   0.0502
+   98   0.0639
+   99   0.0885
+  100   0.1076
+  101   0.1042
+  102   0.0818
+  103   0.0595
+  104   0.0514
+  105   0.0439
+  106   0.0453
+  107   0.0432
+  108   0.0425
+  109   0.0463
+  110   0.0423
+  111   0.0480
+  112   0.0500
+  113   0.0524
+  114   0.0538
+  115   0.0533
+  116   0.0511
+  117   0.0415
+  118   0.0442
+  119   0.0457
+  120   0.0456
+  121   0.0535
+  122   0.0599
+  123   0.0711
+  124   0.0881
+  125   0.1122
+   10   0.1341
+   11   0.0778
+   12   0.0517
+   13   0.0479
+   14   0.0446
+   15   0.0463
+   16   0.0426
+   17   0.0434
+   18   0.0421
+   19   0.0584
+   20   0.0707
+   21   0.0745
+   22   0.0678
+   23   0.0704
+   24   0.0590
+   25   0.0489
+   26   0.0547
+   27   0.0563
+   28   0.0483
+   29   0.0477
+   30   0.0437
+   31   0.0479
+   32   0.0429
+   33   0.0489
+   34   0.0518
+   35   0.0633
+   36   0.0873
+   37   0.1247
+   38   0.1336
+   39   0.1144
+   40   0.1026
+   41   0.0778
+   42   0.0740
+   43   0.0676
+   44   0.0568
+   45   0.0582
+   46   0.0584
+   47   0.0602
+   48   0.0536
+   49   0.0469
+   50   0.0601
+   51   0.0737
+   52   0.0713
+   53   0.0543
+   54   0.0525
+   55   0.0503
+   56   0.0825
+   57   0.1007
+   58   0.0760
+   59   0.0718
+   60   0.0785
+   61   0.0837
+   62   0.0923
+   63   0.0775
+   64   0.0657
+   65   0.0706
+   66   0.0677
+   67   0.0625
+   68   0.0479
+   69   0.0409
+   70   0.0441
+   71   0.0416
+   72   0.0463
+   73   0.0477
+   74   0.0492
+   75   0.0556
+   76   0.0713
+   77   0.0722
+   78   0.0570
+   79   0.0634
+   80   0.1055
+   81   0.1287
+   82   0.1022
+   83   0.0880
+   84   0.0735
+   85   0.0795
+   86   0.0578
+   87   0.0478
+   88   0.0439
+   89   0.0452
+   90   0.0461
+   91   0.0605
+   92   0.0670
+   93   0.0484
+   94   0.0422
+   95   0.0419
+   96   0.0497
+   97   0.0608
+   98   0.1024
+   99   0.1420
+  100   0.1731
+  101   0.2382
+  102   0.2316
+  103   0.1115
+  104   0.0772
+  105   0.0693
+  106   0.0565
+  107   0.0475
+  108   0.0456
+  109   0.0448
+  110   0.0410
+  111   0.0438
+  112   0.0428
+  113   0.0481
+  114   0.0469
+  115   0.0479
+  116   0.0446
+  117   0.0402
+  118   0.0447
+  119   0.0442
+  120   0.0473
+  121   0.0726
+  122   0.1304
+  123   0.1525
+  124   0.2549
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                      GROup of MAchos and Cynical Suckers
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf3.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   20000   First frame (ps) to read from trajectory
+-e           time   30000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 20000.000   Reading frame       1 time 20010.000   Reading frame       2 time 20020.000   Reading frame       3 time 20030.000   Reading frame       4 time 20040.000   Reading frame       5 time 20050.000   Reading frame       6 time 20060.000   Reading frame       7 time 20070.000   Reading frame       8 time 20080.000   Reading frame       9 time 20090.000   Reading frame      10 time 20100.000   Reading frame      11 time 20110.000   Reading frame      12 time 20120.000   Reading frame      13 time 20130.000   Reading frame      14 time 20140.000   Reading frame      15 time 20150.000   Reading frame      16 time 20160.000   Reading frame      17 time 20170.000   Reading frame      18 time 20180.000   Reading frame      19 time 20190.000   Reading frame      20 time 20200.000   Reading frame      30 time 20300.000   Reading frame      40 time 20400.000   Reading frame      50 time 20500.000   Reading frame      60 time 20600.000   Reading frame      70 time 20700.000   Reading frame      80 time 20800.000   Reading frame      90 time 20900.000   Reading frame     100 time 21000.000   Reading frame     110 time 21100.000   Reading frame     120 time 21200.000   Reading frame     130 time 21300.000   Reading frame     140 time 21400.000   Reading frame     150 time 21500.000   Reading frame     160 time 21600.000   Reading frame     170 time 21700.000   Reading frame     180 time 21800.000   Reading frame     190 time 21900.000   Reading frame     200 time 22000.000   Reading frame     300 time 23000.000   Reading frame     400 time 24000.000   Reading frame     500 time 25000.000   Reading frame     600 time 26000.000   Reading frame     700 time 27000.000   Reading frame     800 time 28000.000   Reading frame     900 time 29000.000   Reading frame    1000 time 30000.000   Last frame       1000 time 30000.000   
+
+gcq#207: "I Was Born to Have Adventure" (F. Zappa)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf3.xvg -> rmsf3.oct
+   10   0.1108
+   11   0.0611
+   12   0.0474
+   13   0.0436
+   14   0.0418
+   15   0.0417
+   16   0.0386
+   17   0.0436
+   18   0.0484
+   19   0.0608
+   20   0.0826
+   21   0.0835
+   22   0.0797
+   23   0.0723
+   24   0.0586
+   25   0.0485
+   26   0.0511
+   27   0.0542
+   28   0.0452
+   29   0.0472
+   30   0.0418
+   31   0.0438
+   32   0.0437
+   33   0.0510
+   34   0.0566
+   35   0.0669
+   36   0.0982
+   37   0.1389
+   38   0.1452
+   39   0.1181
+   40   0.1103
+   41   0.0796
+   42   0.0751
+   43   0.0704
+   44   0.0603
+   45   0.0570
+   46   0.0539
+   47   0.0630
+   48   0.0573
+   49   0.0475
+   50   0.0558
+   51   0.0669
+   52   0.0656
+   53   0.0522
+   54   0.0576
+   55   0.0615
+   56   0.0787
+   57   0.0891
+   58   0.0767
+   59   0.0692
+   60   0.0769
+   61   0.0847
+   62   0.0986
+   63   0.0807
+   64   0.0649
+   65   0.0684
+   66   0.0634
+   67   0.0638
+   68   0.0519
+   69   0.0455
+   70   0.0507
+   71   0.0420
+   72   0.0446
+   73   0.0439
+   74   0.0498
+   75   0.0635
+   76   0.0766
+   77   0.0746
+   78   0.0614
+   79   0.0651
+   80   0.0951
+   81   0.1203
+   82   0.1064
+   83   0.0915
+   84   0.0769
+   85   0.0849
+   86   0.0707
+   87   0.0598
+   88   0.0520
+   89   0.0469
+   90   0.0458
+   91   0.0591
+   92   0.0698
+   93   0.0513
+   94   0.0461
+   95   0.0434
+   96   0.0473
+   97   0.0517
+   98   0.0642
+   99   0.0878
+  100   0.1043
+  101   0.1034
+  102   0.0848
+  103   0.0622
+  104   0.0541
+  105   0.0450
+  106   0.0444
+  107   0.0433
+  108   0.0459
+  109   0.0467
+  110   0.0429
+  111   0.0472
+  112   0.0488
+  113   0.0558
+  114   0.0507
+  115   0.0502
+  116   0.0450
+  117   0.0417
+  118   0.0475
+  119   0.0448
+  120   0.0477
+  121   0.0548
+  122   0.0592
+  123   0.0681
+  124   0.0839
+  125   0.1107
+   10   0.1431
+   11   0.0801
+   12   0.0570
+   13   0.0554
+   14   0.0522
+   15   0.0492
+   16   0.0468
+   17   0.0480
+   18   0.0482
+   19   0.0673
+   20   0.0809
+   21   0.0877
+   22   0.0795
+   23   0.0719
+   24   0.0596
+   25   0.0521
+   26   0.0584
+   27   0.0606
+   28   0.0524
+   29   0.0546
+   30   0.0476
+   31   0.0499
+   32   0.0450
+   33   0.0509
+   34   0.0510
+   35   0.0626
+   36   0.0897
+   37   0.1254
+   38   0.1379
+   39   0.1143
+   40   0.1070
+   41   0.0825
+   42   0.0776
+   43   0.0725
+   44   0.0594
+   45   0.0588
+   46   0.0572
+   47   0.0635
+   48   0.0594
+   49   0.0528
+   50   0.0653
+   51   0.0758
+   52   0.0708
+   53   0.0554
+   54   0.0544
+   55   0.0591
+   56   0.0950
+   57   0.1240
+   58   0.1122
+   59   0.1083
+   60   0.1054
+   61   0.1163
+   62   0.1306
+   63   0.1041
+   64   0.0711
+   65   0.0750
+   66   0.0739
+   67   0.0663
+   68   0.0501
+   69   0.0427
+   70   0.0512
+   71   0.0453
+   72   0.0486
+   73   0.0552
+   74   0.0590
+   75   0.0584
+   76   0.0614
+   77   0.0668
+   78   0.0586
+   79   0.0562
+   80   0.0676
+   81   0.0815
+   82   0.0872
+   83   0.0851
+   84   0.0705
+   85   0.0742
+   86   0.0590
+   87   0.0503
+   88   0.0536
+   89   0.0507
+   90   0.0510
+   91   0.0572
+   92   0.0582
+   93   0.0529
+   94   0.0469
+   95   0.0426
+   96   0.0493
+   97   0.0587
+   98   0.1124
+   99   0.1404
+  100   0.1830
+  101   0.1697
+  102   0.1462
+  103   0.1022
+  104   0.0662
+  105   0.0490
+  106   0.0517
+  107   0.0538
+  108   0.0521
+  109   0.0489
+  110   0.0447
+  111   0.0466
+  112   0.0465
+  113   0.0489
+  114   0.0489
+  115   0.0567
+  116   0.0498
+  117   0.0429
+  118   0.0444
+  119   0.0441
+  120   0.0459
+  121   0.0668
+  122   0.0780
+  123   0.1249
+  124   0.2214
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                  Gromacs Runs On Most of All Computer Systems
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf4.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   30000   First frame (ps) to read from trajectory
+-e           time   40000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 30000.000   Reading frame       1 time 30010.000   Reading frame       2 time 30020.000   Reading frame       3 time 30030.000   Reading frame       4 time 30040.000   Reading frame       5 time 30050.000   Reading frame       6 time 30060.000   Reading frame       7 time 30070.000   Reading frame       8 time 30080.000   Reading frame       9 time 30090.000   Reading frame      10 time 30100.000   Reading frame      11 time 30110.000   Reading frame      12 time 30120.000   Reading frame      13 time 30130.000   Reading frame      14 time 30140.000   Reading frame      15 time 30150.000   Reading frame      16 time 30160.000   Reading frame      17 time 30170.000   Reading frame      18 time 30180.000   Reading frame      19 time 30190.000   Reading frame      20 time 30200.000   Reading frame      30 time 30300.000   Reading frame      40 time 30400.000   Reading frame      50 time 30500.000   Reading frame      60 time 30600.000   Reading frame      70 time 30700.000   Reading frame      80 time 30800.000   Reading frame      90 time 30900.000   Reading frame     100 time 31000.000   Reading frame     110 time 31100.000   Reading frame     120 time 31200.000   Reading frame     130 time 31300.000   Reading frame     140 time 31400.000   Reading frame     150 time 31500.000   Reading frame     160 time 31600.000   Reading frame     170 time 31700.000   Reading frame     180 time 31800.000   Reading frame     190 time 31900.000   Reading frame     200 time 32000.000   Reading frame     300 time 33000.000   Reading frame     400 time 34000.000   Reading frame     500 time 35000.000   Reading frame     600 time 36000.000   Reading frame     700 time 37000.000   Reading frame     800 time 38000.000   Reading frame     900 time 39000.000   Reading frame    1000 time 40000.000   Last frame       1000 time 40000.000   
+
+gcq#320: "What They Need's a Damn Good Whacking" (The Beatles)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf4.xvg -> rmsf4.oct
+   10   0.1186
+   11   0.0631
+   12   0.0498
+   13   0.0462
+   14   0.0454
+   15   0.0437
+   16   0.0391
+   17   0.0435
+   18   0.0461
+   19   0.0581
+   20   0.0701
+   21   0.0786
+   22   0.0809
+   23   0.0763
+   24   0.0595
+   25   0.0513
+   26   0.0552
+   27   0.0575
+   28   0.0468
+   29   0.0481
+   30   0.0439
+   31   0.0455
+   32   0.0411
+   33   0.0460
+   34   0.0500
+   35   0.0602
+   36   0.0872
+   37   0.1263
+   38   0.1346
+   39   0.1103
+   40   0.1082
+   41   0.0764
+   42   0.0697
+   43   0.0637
+   44   0.0527
+   45   0.0532
+   46   0.0541
+   47   0.0612
+   48   0.0551
+   49   0.0473
+   50   0.0613
+   51   0.0750
+   52   0.0731
+   53   0.0546
+   54   0.0536
+   55   0.0584
+   56   0.0894
+   57   0.0992
+   58   0.0677
+   59   0.0703
+   60   0.0800
+   61   0.0827
+   62   0.0902
+   63   0.0776
+   64   0.0596
+   65   0.0672
+   66   0.0607
+   67   0.0614
+   68   0.0468
+   69   0.0405
+   70   0.0450
+   71   0.0416
+   72   0.0436
+   73   0.0443
+   74   0.0524
+   75   0.0583
+   76   0.0599
+   77   0.0636
+   78   0.0561
+   79   0.0621
+   80   0.0974
+   81   0.1149
+   82   0.1024
+   83   0.0944
+   84   0.0791
+   85   0.0812
+   86   0.0589
+   87   0.0551
+   88   0.0533
+   89   0.0477
+   90   0.0474
+   91   0.0489
+   92   0.0460
+   93   0.0467
+   94   0.0414
+   95   0.0400
+   96   0.0443
+   97   0.0486
+   98   0.0595
+   99   0.0844
+  100   0.1041
+  101   0.0985
+  102   0.0812
+  103   0.0609
+  104   0.0533
+  105   0.0439
+  106   0.0433
+  107   0.0425
+  108   0.0439
+  109   0.0449
+  110   0.0409
+  111   0.0439
+  112   0.0432
+  113   0.0484
+  114   0.0467
+  115   0.0468
+  116   0.0436
+  117   0.0423
+  118   0.0458
+  119   0.0457
+  120   0.0469
+  121   0.0527
+  122   0.0575
+  123   0.0700
+  124   0.0852
+  125   0.1145
+   10   0.1060
+   11   0.0608
+   12   0.0480
+   13   0.0470
+   14   0.0440
+   15   0.0429
+   16   0.0407
+   17   0.0457
+   18   0.0653
+   19   0.0796
+   20   0.0998
+   21   0.1256
+   22   0.1069
+   23   0.0876
+   24   0.0691
+   25   0.0519
+   26   0.0566
+   27   0.0591
+   28   0.0498
+   29   0.0506
+   30   0.0448
+   31   0.0456
+   32   0.0413
+   33   0.0458
+   34   0.0482
+   35   0.0584
+   36   0.0840
+   37   0.1593
+   38   0.2110
+   39   0.1710
+   40   0.0991
+   41   0.0703
+   42   0.0648
+   43   0.0601
+   44   0.0513
+   45   0.0524
+   46   0.0553
+   47   0.0567
+   48   0.0517
+   49   0.0470
+   50   0.0623
+   51   0.0768
+   52   0.0730
+   53   0.0537
+   54   0.0507
+   55   0.0462
+   56   0.0799
+   57   0.1143
+   58   0.0993
+   59   0.0741
+   60   0.0780
+   61   0.0854
+   62   0.1018
+   63   0.0876
+   64   0.0655
+   65   0.0712
+   66   0.0735
+   67   0.0644
+   68   0.0486
+   69   0.0402
+   70   0.0496
+   71   0.0436
+   72   0.0446
+   73   0.0466
+   74   0.0539
+   75   0.0517
+   76   0.0579
+   77   0.0630
+   78   0.0567
+   79   0.0560
+   80   0.0699
+   81   0.0835
+   82   0.0893
+   83   0.0876
+   84   0.0731
+   85   0.0768
+   86   0.0556
+   87   0.0460
+   88   0.0492
+   89   0.0463
+   90   0.0452
+   91   0.0531
+   92   0.0595
+   93   0.0676
+   94   0.0517
+   95   0.0443
+   96   0.0485
+   97   0.0536
+   98   0.0823
+   99   0.1272
+  100   0.1988
+  101   0.1964
+  102   0.1337
+  103   0.0679
+  104   0.0569
+  105   0.0460
+  106   0.0441
+  107   0.0444
+  108   0.0434
+  109   0.0442
+  110   0.0418
+  111   0.0462
+  112   0.0451
+  113   0.0490
+  114   0.0501
+  115   0.0607
+  116   0.0472
+  117   0.0422
+  118   0.0475
+  119   0.0442
+  120   0.0467
+  121   0.0632
+  122   0.0718
+  123   0.1094
+  124   0.1843
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                Gravel Rubs Often Many Awfully Cauterized Sores
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf5.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   40000   First frame (ps) to read from trajectory
+-e           time   50000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 40000.000   Reading frame       1 time 40010.000   Reading frame       2 time 40020.000   Reading frame       3 time 40030.000   Reading frame       4 time 40040.000   Reading frame       5 time 40050.000   Reading frame       6 time 40060.000   Reading frame       7 time 40070.000   Reading frame       8 time 40080.000   Reading frame       9 time 40090.000   Reading frame      10 time 40100.000   Reading frame      11 time 40110.000   Reading frame      12 time 40120.000   Reading frame      13 time 40130.000   Reading frame      14 time 40140.000   Reading frame      15 time 40150.000   Reading frame      16 time 40160.000   Reading frame      17 time 40170.000   Reading frame      18 time 40180.000   Reading frame      19 time 40190.000   Reading frame      20 time 40200.000   Reading frame      30 time 40300.000   Reading frame      40 time 40400.000   Reading frame      50 time 40500.000   Reading frame      60 time 40600.000   Reading frame      70 time 40700.000   Reading frame      80 time 40800.000   Reading frame      90 time 40900.000   Reading frame     100 time 41000.000   Reading frame     110 time 41100.000   Reading frame     120 time 41200.000   Reading frame     130 time 41300.000   Reading frame     140 time 41400.000   Reading frame     150 time 41500.000   Reading frame     160 time 41600.000   Reading frame     170 time 41700.000   Reading frame     180 time 41800.000   Reading frame     190 time 41900.000   Reading frame     200 time 42000.000   Reading frame     300 time 43000.000   Reading frame     400 time 44000.000   Reading frame     500 time 45000.000   Reading frame     600 time 46000.000   Reading frame     700 time 47000.000   Reading frame     800 time 48000.000   Reading frame     900 time 49000.000   Reading frame    1000 time 50000.000   Last frame       1000 time 50000.000   
+
+gcq#73: "One Cross Each" (Monty Python)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf5.xvg -> rmsf5.oct
+   10   0.1189
+   11   0.0623
+   12   0.0527
+   13   0.0478
+   14   0.0472
+   15   0.0442
+   16   0.0390
+   17   0.0412
+   18   0.0441
+   19   0.0594
+   20   0.0841
+   21   0.0839
+   22   0.0816
+   23   0.0726
+   24   0.0574
+   25   0.0494
+   26   0.0526
+   27   0.0544
+   28   0.0505
+   29   0.0492
+   30   0.0432
+   31   0.0449
+   32   0.0436
+   33   0.0492
+   34   0.0529
+   35   0.0649
+   36   0.0967
+   37   0.1450
+   38   0.1538
+   39   0.1241
+   40   0.1150
+   41   0.0825
+   42   0.0749
+   43   0.0687
+   44   0.0594
+   45   0.0605
+   46   0.0571
+   47   0.0610
+   48   0.0549
+   49   0.0463
+   50   0.0571
+   51   0.0710
+   52   0.0687
+   53   0.0523
+   54   0.0520
+   55   0.0540
+   56   0.0987
+   57   0.1005
+   58   0.0997
+   59   0.0826
+   60   0.0832
+   61   0.0870
+   62   0.1146
+   63   0.1043
+   64   0.0742
+   65   0.0732
+   66   0.0651
+   67   0.0638
+   68   0.0491
+   69   0.0408
+   70   0.0449
+   71   0.0420
+   72   0.0438
+   73   0.0450
+   74   0.0504
+   75   0.0563
+   76   0.0724
+   77   0.0880
+   78   0.0695
+   79   0.0701
+   80   0.1068
+   81   0.1203
+   82   0.1047
+   83   0.1006
+   84   0.0837
+   85   0.0896
+   86   0.0630
+   87   0.0534
+   88   0.0532
+   89   0.0450
+   90   0.0460
+   91   0.0462
+   92   0.0482
+   93   0.0442
+   94   0.0426
+   95   0.0398
+   96   0.0447
+   97   0.0495
+   98   0.0638
+   99   0.0899
+  100   0.1088
+  101   0.1045
+  102   0.0825
+  103   0.0600
+  104   0.0549
+  105   0.0441
+  106   0.0438
+  107   0.0427
+  108   0.0434
+  109   0.0431
+  110   0.0394
+  111   0.0429
+  112   0.0449
+  113   0.0513
+  114   0.0502
+  115   0.0480
+  116   0.0408
+  117   0.0395
+  118   0.0442
+  119   0.0456
+  120   0.0478
+  121   0.0548
+  122   0.0591
+  123   0.0720
+  124   0.0849
+  125   0.1133
+   10   0.0763
+   11   0.0536
+   12   0.0439
+   13   0.0450
+   14   0.0425
+   15   0.0432
+   16   0.0431
+   17   0.0472
+   18   0.0615
+   19   0.0810
+   20   0.1438
+   21   0.1207
+   22   0.1012
+   23   0.0741
+   24   0.0639
+   25   0.0532
+   26   0.0572
+   27   0.0606
+   28   0.0497
+   29   0.0504
+   30   0.0432
+   31   0.0446
+   32   0.0402
+   33   0.0447
+   34   0.0489
+   35   0.0594
+   36   0.0922
+   37   0.1172
+   38   0.1381
+   39   0.1314
+   40   0.1020
+   41   0.0750
+   42   0.0666
+   43   0.0595
+   44   0.0512
+   45   0.0503
+   46   0.0518
+   47   0.0581
+   48   0.0540
+   49   0.0471
+   50   0.0626
+   51   0.0721
+   52   0.0680
+   53   0.0514
+   54   0.0490
+   55   0.0470
+   56   0.0581
+   57   0.0742
+   58   0.0672
+   59   0.0637
+   60   0.0754
+   61   0.0788
+   62   0.0940
+   63   0.0842
+   64   0.0635
+   65   0.0672
+   66   0.0710
+   67   0.0655
+   68   0.0477
+   69   0.0408
+   70   0.0423
+   71   0.0401
+   72   0.0426
+   73   0.0462
+   74   0.0563
+   75   0.0572
+   76   0.0664
+   77   0.0780
+   78   0.0681
+   79   0.0635
+   80   0.0741
+   81   0.0902
+   82   0.0921
+   83   0.0882
+   84   0.0805
+   85   0.0791
+   86   0.0589
+   87   0.0471
+   88   0.0485
+   89   0.0507
+   90   0.0496
+   91   0.0492
+   92   0.0544
+   93   0.0569
+   94   0.0441
+   95   0.0417
+   96   0.0496
+   97   0.0532
+   98   0.0646
+   99   0.0870
+  100   0.1163
+  101   0.1168
+  102   0.0986
+  103   0.0597
+  104   0.0514
+  105   0.0448
+  106   0.0452
+  107   0.0444
+  108   0.0439
+  109   0.0480
+  110   0.0440
+  111   0.0468
+  112   0.0472
+  113   0.0516
+  114   0.0508
+  115   0.0611
+  116   0.0470
+  117   0.0430
+  118   0.0491
+  119   0.0456
+  120   0.0480
+  121   0.0566
+  122   0.0665
+  123   0.0894
+  124   0.1580
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                   GROningen MAchine for Chemical Simulation
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf6.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   50000   First frame (ps) to read from trajectory
+-e           time   60000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 50000.000   Reading frame       1 time 50010.000   Reading frame       2 time 50020.000   Reading frame       3 time 50030.000   Reading frame       4 time 50040.000   Reading frame       5 time 50050.000   Reading frame       6 time 50060.000   Reading frame       7 time 50070.000   Reading frame       8 time 50080.000   Reading frame       9 time 50090.000   Reading frame      10 time 50100.000   Reading frame      11 time 50110.000   Reading frame      12 time 50120.000   Reading frame      13 time 50130.000   Reading frame      14 time 50140.000   Reading frame      15 time 50150.000   Reading frame      16 time 50160.000   Reading frame      17 time 50170.000   Reading frame      18 time 50180.000   Reading frame      19 time 50190.000   Reading frame      20 time 50200.000   Reading frame      30 time 50300.000   Reading frame      40 time 50400.000   Reading frame      50 time 50500.000   Reading frame      60 time 50600.000   Reading frame      70 time 50700.000   Reading frame      80 time 50800.000   Reading frame      90 time 50900.000   Reading frame     100 time 51000.000   Reading frame     110 time 51100.000   Reading frame     120 time 51200.000   Reading frame     130 time 51300.000   Reading frame     140 time 51400.000   Reading frame     150 time 51500.000   Reading frame     160 time 51600.000   Reading frame     170 time 51700.000   Reading frame     180 time 51800.000   Reading frame     190 time 51900.000   Reading frame     200 time 52000.000   Reading frame     300 time 53000.000   Reading frame     400 time 54000.000   Reading frame     500 time 55000.000   Reading frame     600 time 56000.000   Reading frame     700 time 57000.000   Reading frame     800 time 58000.000   Reading frame     900 time 59000.000   Reading frame    1000 time 60000.000   Last frame       1000 time 60000.000   
+
+gcq#186: "Clickety Clickety Click" (System Manager From Hell)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf6.xvg -> rmsf6.oct
+   10   0.1090
+   11   0.0645
+   12   0.0518
+   13   0.0484
+   14   0.0471
+   15   0.0453
+   16   0.0413
+   17   0.0444
+   18   0.0695
+   19   0.1007
+   20   0.1787
+   21   0.1712
+   22   0.1382
+   23   0.0868
+   24   0.0640
+   25   0.0562
+   26   0.0588
+   27   0.0611
+   28   0.0534
+   29   0.0481
+   30   0.0424
+   31   0.0435
+   32   0.0406
+   33   0.0448
+   34   0.0518
+   35   0.0642
+   36   0.0961
+   37   0.1380
+   38   0.1520
+   39   0.1232
+   40   0.1090
+   41   0.0781
+   42   0.0728
+   43   0.0647
+   44   0.0567
+   45   0.0559
+   46   0.0537
+   47   0.0604
+   48   0.0576
+   49   0.0493
+   50   0.0594
+   51   0.0741
+   52   0.0699
+   53   0.0562
+   54   0.0541
+   55   0.0490
+   56   0.0935
+   57   0.0957
+   58   0.0890
+   59   0.0819
+   60   0.0854
+   61   0.0890
+   62   0.1130
+   63   0.1027
+   64   0.0756
+   65   0.0774
+   66   0.0653
+   67   0.0628
+   68   0.0480
+   69   0.0409
+   70   0.0431
+   71   0.0402
+   72   0.0406
+   73   0.0419
+   74   0.0447
+   75   0.0466
+   76   0.0613
+   77   0.0870
+   78   0.0715
+   79   0.0681
+   80   0.0881
+   81   0.1080
+   82   0.1076
+   83   0.1013
+   84   0.0885
+   85   0.0868
+   86   0.0617
+   87   0.0552
+   88   0.0559
+   89   0.0489
+   90   0.0418
+   91   0.0435
+   92   0.0432
+   93   0.0474
+   94   0.0415
+   95   0.0406
+   96   0.0445
+   97   0.0488
+   98   0.0651
+   99   0.0912
+  100   0.1154
+  101   0.1109
+  102   0.0868
+  103   0.0618
+  104   0.0534
+  105   0.0451
+  106   0.0449
+  107   0.0439
+  108   0.0447
+  109   0.0457
+  110   0.0418
+  111   0.0455
+  112   0.0454
+  113   0.0501
+  114   0.0473
+  115   0.0482
+  116   0.0452
+  117   0.0414
+  118   0.0430
+  119   0.0466
+  120   0.0474
+  121   0.0565
+  122   0.0605
+  123   0.0710
+  124   0.0839
+  125   0.1062
+   10   0.1319
+   11   0.0625
+   12   0.0469
+   13   0.0495
+   14   0.0468
+   15   0.0461
+   16   0.0445
+   17   0.0480
+   18   0.0504
+   19   0.0622
+   20   0.0816
+   21   0.0949
+   22   0.0903
+   23   0.0840
+   24   0.0654
+   25   0.0555
+   26   0.0587
+   27   0.0647
+   28   0.0502
+   29   0.0505
+   30   0.0431
+   31   0.0449
+   32   0.0422
+   33   0.0466
+   34   0.0478
+   35   0.0571
+   36   0.0905
+   37   0.1146
+   38   0.1332
+   39   0.1298
+   40   0.1030
+   41   0.0771
+   42   0.0689
+   43   0.0626
+   44   0.0527
+   45   0.0534
+   46   0.0534
+   47   0.0580
+   48   0.0547
+   49   0.0517
+   50   0.0744
+   51   0.0731
+   52   0.0734
+   53   0.0599
+   54   0.0547
+   55   0.0566
+   56   0.0955
+   57   0.1085
+   58   0.0744
+   59   0.0694
+   60   0.0803
+   61   0.0809
+   62   0.0938
+   63   0.0807
+   64   0.0615
+   65   0.0668
+   66   0.0691
+   67   0.0646
+   68   0.0472
+   69   0.0391
+   70   0.0432
+   71   0.0403
+   72   0.0421
+   73   0.0442
+   74   0.0507
+   75   0.0559
+   76   0.0627
+   77   0.0739
+   78   0.0652
+   79   0.0573
+   80   0.0715
+   81   0.0853
+   82   0.0870
+   83   0.0875
+   84   0.0802
+   85   0.0766
+   86   0.0556
+   87   0.0459
+   88   0.0521
+   89   0.0525
+   90   0.0478
+   91   0.0497
+   92   0.0496
+   93   0.0488
+   94   0.0436
+   95   0.0419
+   96   0.0525
+   97   0.0602
+   98   0.0920
+   99   0.1404
+  100   0.2145
+  101   0.1889
+  102   0.1399
+  103   0.0623
+  104   0.0510
+  105   0.0463
+  106   0.0476
+  107   0.0442
+  108   0.0448
+  109   0.0476
+  110   0.0432
+  111   0.0446
+  112   0.0467
+  113   0.0518
+  114   0.0561
+  115   0.0599
+  116   0.0443
+  117   0.0446
+  118   0.0530
+  119   0.0433
+  120   0.0461
+  121   0.0529
+  122   0.0622
+  123   0.0946
+  124   0.1934
+                         :-)  G  R  O  M  A  C  S  (-:
+
+               Giant Rising Ordinary Mutants for A Clerical Setup
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf7.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   60000   First frame (ps) to read from trajectory
+-e           time   70000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 60000.000   Reading frame       1 time 60010.000   Reading frame       2 time 60020.000   Reading frame       3 time 60030.000   Reading frame       4 time 60040.000   Reading frame       5 time 60050.000   Reading frame       6 time 60060.000   Reading frame       7 time 60070.000   Reading frame       8 time 60080.000   Reading frame       9 time 60090.000   Reading frame      10 time 60100.000   Reading frame      11 time 60110.000   Reading frame      12 time 60120.000   Reading frame      13 time 60130.000   Reading frame      14 time 60140.000   Reading frame      15 time 60150.000   Reading frame      16 time 60160.000   Reading frame      17 time 60170.000   Reading frame      18 time 60180.000   Reading frame      19 time 60190.000   Reading frame      20 time 60200.000   Reading frame      30 time 60300.000   Reading frame      40 time 60400.000   Reading frame      50 time 60500.000   Reading frame      60 time 60600.000   Reading frame      70 time 60700.000   Reading frame      80 time 60800.000   Reading frame      90 time 60900.000   Reading frame     100 time 61000.000   Reading frame     110 time 61100.000   Reading frame     120 time 61200.000   Reading frame     130 time 61300.000   Reading frame     140 time 61400.000   Reading frame     150 time 61500.000   Reading frame     160 time 61600.000   Reading frame     170 time 61700.000   Reading frame     180 time 61800.000   Reading frame     190 time 61900.000   Reading frame     200 time 62000.000   Reading frame     300 time 63000.000   Reading frame     400 time 64000.000   Reading frame     500 time 65000.000   Reading frame     600 time 66000.000   Reading frame     700 time 67000.000   Reading frame     800 time 68000.000   Reading frame     900 time 69000.000   Reading frame    1000 time 70000.000   Last frame       1000 time 70000.000   
+
+gcq#186: "Clickety Clickety Click" (System Manager From Hell)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf7.xvg -> rmsf7.oct
+   10   0.0938
+   11   0.0585
+   12   0.0467
+   13   0.0457
+   14   0.0453
+   15   0.0441
+   16   0.0418
+   17   0.0446
+   18   0.0500
+   19   0.0672
+   20   0.0979
+   21   0.1024
+   22   0.0929
+   23   0.0775
+   24   0.0579
+   25   0.0510
+   26   0.0546
+   27   0.0559
+   28   0.0470
+   29   0.0441
+   30   0.0419
+   31   0.0447
+   32   0.0425
+   33   0.0493
+   34   0.0536
+   35   0.0664
+   36   0.0975
+   37   0.1420
+   38   0.1533
+   39   0.1254
+   40   0.1110
+   41   0.0828
+   42   0.0754
+   43   0.0672
+   44   0.0565
+   45   0.0533
+   46   0.0521
+   47   0.0561
+   48   0.0524
+   49   0.0453
+   50   0.0576
+   51   0.0715
+   52   0.0675
+   53   0.0530
+   54   0.0514
+   55   0.0485
+   56   0.0527
+   57   0.0699
+   58   0.0799
+   59   0.0734
+   60   0.0817
+   61   0.0901
+   62   0.1152
+   63   0.0997
+   64   0.0725
+   65   0.0702
+   66   0.0638
+   67   0.0616
+   68   0.0499
+   69   0.0421
+   70   0.0506
+   71   0.0435
+   72   0.0447
+   73   0.0435
+   74   0.0454
+   75   0.0518
+   76   0.0713
+   77   0.0835
+   78   0.0660
+   79   0.0657
+   80   0.0932
+   81   0.1136
+   82   0.1020
+   83   0.0933
+   84   0.0812
+   85   0.0886
+   86   0.0614
+   87   0.0503
+   88   0.0502
+   89   0.0455
+   90   0.0416
+   91   0.0465
+   92   0.0517
+   93   0.0475
+   94   0.0454
+   95   0.0406
+   96   0.0453
+   97   0.0496
+   98   0.0600
+   99   0.0849
+  100   0.1084
+  101   0.1049
+  102   0.0841
+  103   0.0614
+  104   0.0541
+  105   0.0450
+  106   0.0454
+  107   0.0419
+  108   0.0446
+  109   0.0479
+  110   0.0447
+  111   0.0471
+  112   0.0494
+  113   0.0557
+  114   0.0477
+  115   0.0460
+  116   0.0441
+  117   0.0435
+  118   0.0486
+  119   0.0490
+  120   0.0509
+  121   0.0607
+  122   0.0632
+  123   0.0751
+  124   0.0870
+  125   0.1066
+   10   0.1003
+   11   0.0653
+   12   0.0494
+   13   0.0484
+   14   0.0444
+   15   0.0454
+   16   0.0463
+   17   0.0499
+   18   0.0562
+   19   0.0709
+   20   0.1000
+   21   0.1160
+   22   0.1014
+   23   0.0846
+   24   0.0647
+   25   0.0553
+   26   0.0569
+   27   0.0688
+   28   0.0559
+   29   0.0564
+   30   0.0476
+   31   0.0473
+   32   0.0412
+   33   0.0462
+   34   0.0496
+   35   0.0600
+   36   0.0911
+   37   0.1180
+   38   0.1401
+   39   0.1345
+   40   0.1047
+   41   0.0741
+   42   0.0702
+   43   0.0654
+   44   0.0549
+   45   0.0569
+   46   0.0613
+   47   0.0686
+   48   0.0609
+   49   0.0566
+   50   0.0799
+   51   0.0730
+   52   0.0786
+   53   0.0571
+   54   0.0649
+   55   0.0599
+   56   0.0796
+   57   0.0965
+   58   0.0937
+   59   0.0903
+   60   0.0953
+   61   0.0992
+   62   0.1301
+   63   0.1180
+   64   0.0799
+   65   0.0824
+   66   0.0789
+   67   0.0701
+   68   0.0524
+   69   0.0439
+   70   0.0474
+   71   0.0419
+   72   0.0454
+   73   0.0517
+   74   0.0599
+   75   0.0627
+   76   0.0718
+   77   0.0919
+   78   0.0818
+   79   0.0691
+   80   0.0891
+   81   0.1042
+   82   0.0985
+   83   0.0942
+   84   0.0903
+   85   0.0774
+   86   0.0597
+   87   0.0492
+   88   0.0529
+   89   0.0528
+   90   0.0550
+   91   0.0601
+   92   0.0603
+   93   0.0533
+   94   0.0460
+   95   0.0447
+   96   0.0542
+   97   0.0585
+   98   0.0732
+   99   0.0983
+  100   0.1340
+  101   0.1481
+  102   0.1205
+  103   0.0634
+  104   0.0562
+  105   0.0493
+  106   0.0480
+  107   0.0460
+  108   0.0469
+  109   0.0512
+  110   0.0446
+  111   0.0556
+  112   0.0497
+  113   0.0557
+  114   0.0529
+  115   0.0630
+  116   0.0538
+  117   0.0435
+  118   0.0468
+  119   0.0428
+  120   0.0464
+  121   0.0551
+  122   0.0733
+  123   0.1217
+  124   0.2078
+                         :-)  G  R  O  M  A  C  S  (-:
+
+               Giant Rising Ordinary Mutants for A Clerical Setup
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf8.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   70000   First frame (ps) to read from trajectory
+-e           time   80000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 70000.000   Reading frame       1 time 70010.000   Reading frame       2 time 70020.000   Reading frame       3 time 70030.000   Reading frame       4 time 70040.000   Reading frame       5 time 70050.000   Reading frame       6 time 70060.000   Reading frame       7 time 70070.000   Reading frame       8 time 70080.000   Reading frame       9 time 70090.000   Reading frame      10 time 70100.000   Reading frame      11 time 70110.000   Reading frame      12 time 70120.000   Reading frame      13 time 70130.000   Reading frame      14 time 70140.000   Reading frame      15 time 70150.000   Reading frame      16 time 70160.000   Reading frame      17 time 70170.000   Reading frame      18 time 70180.000   Reading frame      19 time 70190.000   Reading frame      20 time 70200.000   Reading frame      30 time 70300.000   Reading frame      40 time 70400.000   Reading frame      50 time 70500.000   Reading frame      60 time 70600.000   Reading frame      70 time 70700.000   Reading frame      80 time 70800.000   Reading frame      90 time 70900.000   Reading frame     100 time 71000.000   Reading frame     110 time 71100.000   Reading frame     120 time 71200.000   Reading frame     130 time 71300.000   Reading frame     140 time 71400.000   Reading frame     150 time 71500.000   Reading frame     160 time 71600.000   Reading frame     170 time 71700.000   Reading frame     180 time 71800.000   Reading frame     190 time 71900.000   Reading frame     200 time 72000.000   Reading frame     300 time 73000.000   Reading frame     400 time 74000.000   Reading frame     500 time 75000.000   Reading frame     600 time 76000.000   Reading frame     700 time 77000.000   Reading frame     800 time 78000.000   Reading frame     900 time 79000.000   Reading frame    1000 time 80000.000   Last frame       1000 time 80000.000   
+
+gcq#299: "I believe in miracles cause I'm one" (The Ramones)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf8.xvg -> rmsf8.oct
+   10   0.1162
+   11   0.0632
+   12   0.0544
+   13   0.0516
+   14   0.0493
+   15   0.0475
+   16   0.0423
+   17   0.0439
+   18   0.0537
+   19   0.0734
+   20   0.1227
+   21   0.1166
+   22   0.0989
+   23   0.0728
+   24   0.0606
+   25   0.0538
+   26   0.0607
+   27   0.0627
+   28   0.0524
+   29   0.0551
+   30   0.0488
+   31   0.0504
+   32   0.0453
+   33   0.0496
+   34   0.0518
+   35   0.0634
+   36   0.0884
+   37   0.1266
+   38   0.1381
+   39   0.1165
+   40   0.1019
+   41   0.0774
+   42   0.0750
+   43   0.0692
+   44   0.0586
+   45   0.0602
+   46   0.0623
+   47   0.0645
+   48   0.0595
+   49   0.0529
+   50   0.0638
+   51   0.0780
+   52   0.0734
+   53   0.0571
+   54   0.0554
+   55   0.0598
+   56   0.0862
+   57   0.1044
+   58   0.0724
+   59   0.0667
+   60   0.0756
+   61   0.0855
+   62   0.0964
+   63   0.0781
+   64   0.0612
+   65   0.0691
+   66   0.0637
+   67   0.0623
+   68   0.0501
+   69   0.0412
+   70   0.0455
+   71   0.0434
+   72   0.0453
+   73   0.0479
+   74   0.0610
+   75   0.0621
+   76   0.0667
+   77   0.1124
+   78   0.0705
+   79   0.0668
+   80   0.1032
+   81   0.1268
+   82   0.1122
+   83   0.0978
+   84   0.0762
+   85   0.0772
+   86   0.0583
+   87   0.0567
+   88   0.0562
+   89   0.0479
+   90   0.0478
+   91   0.0457
+   92   0.0520
+   93   0.0455
+   94   0.0432
+   95   0.0421
+   96   0.0461
+   97   0.0510
+   98   0.0617
+   99   0.0869
+  100   0.1052
+  101   0.1008
+  102   0.0828
+  103   0.0641
+  104   0.0591
+  105   0.0465
+  106   0.0480
+  107   0.0438
+  108   0.0446
+  109   0.0472
+  110   0.0430
+  111   0.0464
+  112   0.0487
+  113   0.0547
+  114   0.0473
+  115   0.0479
+  116   0.0436
+  117   0.0423
+  118   0.0458
+  119   0.0449
+  120   0.0504
+  121   0.0598
+  122   0.0641
+  123   0.0789
+  124   0.0897
+  125   0.1152
+   10   0.1320
+   11   0.0685
+   12   0.0529
+   13   0.0470
+   14   0.0438
+   15   0.0443
+   16   0.0414
+   17   0.0447
+   18   0.0637
+   19   0.0943
+   20   0.1679
+   21   0.1587
+   22   0.1282
+   23   0.0807
+   24   0.0631
+   25   0.0506
+   26   0.0561
+   27   0.0572
+   28   0.0487
+   29   0.0495
+   30   0.0428
+   31   0.0441
+   32   0.0421
+   33   0.0485
+   34   0.0538
+   35   0.0674
+   36   0.1043
+   37   0.1221
+   38   0.1429
+   39   0.1369
+   40   0.1138
+   41   0.0812
+   42   0.0748
+   43   0.0658
+   44   0.0562
+   45   0.0537
+   46   0.0526
+   47   0.0541
+   48   0.0510
+   49   0.0479
+   50   0.0686
+   51   0.0742
+   52   0.0740
+   53   0.0528
+   54   0.0564
+   55   0.0486
+   56   0.0652
+   57   0.1176
+   58   0.0865
+   59   0.0645
+   60   0.0792
+   61   0.0942
+   62   0.1094
+   63   0.0954
+   64   0.0794
+   65   0.0808
+   66   0.0798
+   67   0.0702
+   68   0.0528
+   69   0.0420
+   70   0.0452
+   71   0.0430
+   72   0.0466
+   73   0.0484
+   74   0.0526
+   75   0.0640
+   76   0.0677
+   77   0.0711
+   78   0.0590
+   79   0.0565
+   80   0.0725
+   81   0.0913
+   82   0.0900
+   83   0.0841
+   84   0.0718
+   85   0.0714
+   86   0.0553
+   87   0.0480
+   88   0.0577
+   89   0.0583
+   90   0.0601
+   91   0.0510
+   92   0.0549
+   93   0.0525
+   94   0.0448
+   95   0.0438
+   96   0.0551
+   97   0.0706
+   98   0.1355
+   99   0.1526
+  100   0.1715
+  101   0.1965
+  102   0.2084
+  103   0.1196
+  104   0.0786
+  105   0.0548
+  106   0.0456
+  107   0.0455
+  108   0.0451
+  109   0.0460
+  110   0.0402
+  111   0.0437
+  112   0.0424
+  113   0.0491
+  114   0.0485
+  115   0.0529
+  116   0.0442
+  117   0.0433
+  118   0.0512
+  119   0.0464
+  120   0.0463
+  121   0.0573
+  122   0.0807
+  123   0.1379
+  124   0.2357
+                         :-)  G  R  O  M  A  C  S  (-:
+
+             Gallium Rubidium Oxygen Manganese Argon Carbon Silicon
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o      rmsf9.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   80000   First frame (ps) to read from trajectory
+-e           time   90000   Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 80000.000   Reading frame       1 time 80010.000   Reading frame       2 time 80020.000   Reading frame       3 time 80030.000   Reading frame       4 time 80040.000   Reading frame       5 time 80050.000   Reading frame       6 time 80060.000   Reading frame       7 time 80070.000   Reading frame       8 time 80080.000   Reading frame       9 time 80090.000   Reading frame      10 time 80100.000   Reading frame      11 time 80110.000   Reading frame      12 time 80120.000   Reading frame      13 time 80130.000   Reading frame      14 time 80140.000   Reading frame      15 time 80150.000   Reading frame      16 time 80160.000   Reading frame      17 time 80170.000   Reading frame      18 time 80180.000   Reading frame      19 time 80190.000   Reading frame      20 time 80200.000   Reading frame      30 time 80300.000   Reading frame      40 time 80400.000   Reading frame      50 time 80500.000   Reading frame      60 time 80600.000   Reading frame      70 time 80700.000   Reading frame      80 time 80800.000   Reading frame      90 time 80900.000   Reading frame     100 time 81000.000   Reading frame     110 time 81100.000   Reading frame     120 time 81200.000   Reading frame     130 time 81300.000   Reading frame     140 time 81400.000   Reading frame     150 time 81500.000   Reading frame     160 time 81600.000   Reading frame     170 time 81700.000   Reading frame     180 time 81800.000   Reading frame     190 time 81900.000   Reading frame     200 time 82000.000   Reading frame     300 time 83000.000   Reading frame     400 time 84000.000   Reading frame     500 time 85000.000   Reading frame     600 time 86000.000   Reading frame     700 time 87000.000   Reading frame     800 time 88000.000   Reading frame     900 time 89000.000   Reading frame    1000 time 90000.000   Last frame       1000 time 90000.000   
+
+gcq#52: "You Think That You're Bigger When You Fill the Void" (Urban Dance Squad)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf9.xvg -> rmsf9.oct
+   10   0.0832
+   11   0.0565
+   12   0.0465
+   13   0.0457
+   14   0.0447
+   15   0.0432
+   16   0.0395
+   17   0.0415
+   18   0.0701
+   19   0.1122
+   20   0.1864
+   21   0.1834
+   22   0.1380
+   23   0.0707
+   24   0.0595
+   25   0.0505
+   26   0.0530
+   27   0.0495
+   28   0.0441
+   29   0.0439
+   30   0.0423
+   31   0.0429
+   32   0.0394
+   33   0.0436
+   34   0.0456
+   35   0.0563
+   36   0.0848
+   37   0.1345
+   38   0.1417
+   39   0.1140
+   40   0.0998
+   41   0.0703
+   42   0.0638
+   43   0.0587
+   44   0.0505
+   45   0.0516
+   46   0.0525
+   47   0.0566
+   48   0.0490
+   49   0.0441
+   50   0.0560
+   51   0.0728
+   52   0.0677
+   53   0.0515
+   54   0.0521
+   55   0.0487
+   56   0.0592
+   57   0.0739
+   58   0.0794
+   59   0.0773
+   60   0.0823
+   61   0.0920
+   62   0.1284
+   63   0.1177
+   64   0.0789
+   65   0.0661
+   66   0.0638
+   67   0.0600
+   68   0.0458
+   69   0.0386
+   70   0.0401
+   71   0.0393
+   72   0.0413
+   73   0.0401
+   74   0.0458
+   75   0.0441
+   76   0.0591
+   77   0.0655
+   78   0.0579
+   79   0.0551
+   80   0.0740
+   81   0.0896
+   82   0.0920
+   83   0.0868
+   84   0.0767
+   85   0.0725
+   86   0.0537
+   87   0.0438
+   88   0.0482
+   89   0.0442
+   90   0.0429
+   91   0.0436
+   92   0.0414
+   93   0.0379
+   94   0.0391
+   95   0.0388
+   96   0.0429
+   97   0.0485
+   98   0.0609
+   99   0.0900
+  100   0.1096
+  101   0.1048
+  102   0.0801
+  103   0.0583
+  104   0.0524
+  105   0.0423
+  106   0.0432
+  107   0.0423
+  108   0.0438
+  109   0.0450
+  110   0.0392
+  111   0.0402
+  112   0.0409
+  113   0.0438
+  114   0.0412
+  115   0.0399
+  116   0.0379
+  117   0.0394
+  118   0.0438
+  119   0.0431
+  120   0.0484
+  121   0.0537
+  122   0.0587
+  123   0.0708
+  124   0.0861
+  125   0.1091
+   10   0.1075
+   11   0.0696
+   12   0.0509
+   13   0.0512
+   14   0.0476
+   15   0.0464
+   16   0.0414
+   17   0.0447
+   18   0.0444
+   19   0.0623
+   20   0.0801
+   21   0.0870
+   22   0.0836
+   23   0.0786
+   24   0.0609
+   25   0.0495
+   26   0.0549
+   27   0.0561
+   28   0.0479
+   29   0.0484
+   30   0.0427
+   31   0.0466
+   32   0.0438
+   33   0.0483
+   34   0.0515
+   35   0.0624
+   36   0.0983
+   37   0.1239
+   38   0.1418
+   39   0.1390
+   40   0.1126
+   41   0.0818
+   42   0.0745
+   43   0.0653
+   44   0.0550
+   45   0.0558
+   46   0.0549
+   47   0.0586
+   48   0.0547
+   49   0.0476
+   50   0.0606
+   51   0.0797
+   52   0.0754
+   53   0.0560
+   54   0.0533
+   55   0.0552
+   56   0.0978
+   57   0.1174
+   58   0.0785
+   59   0.0750
+   60   0.0839
+   61   0.0886
+   62   0.1034
+   63   0.0923
+   64   0.0777
+   65   0.0832
+   66   0.0742
+   67   0.0650
+   68   0.0481
+   69   0.0416
+   70   0.0461
+   71   0.0411
+   72   0.0411
+   73   0.0467
+   74   0.0526
+   75   0.0589
+   76   0.0849
+   77   0.1064
+   78   0.0642
+   79   0.0633
+   80   0.0851
+   81   0.1024
+   82   0.0936
+   83   0.0927
+   84   0.0772
+   85   0.0837
+   86   0.0654
+   87   0.0500
+   88   0.0469
+   89   0.0446
+   90   0.0463
+   91   0.0483
+   92   0.0506
+   93   0.0485
+   94   0.0443
+   95   0.0412
+   96   0.0469
+   97   0.0559
+   98   0.0864
+   99   0.1240
+  100   0.1362
+  101   0.1318
+  102   0.1212
+  103   0.0788
+  104   0.0622
+  105   0.0531
+  106   0.0468
+  107   0.0453
+  108   0.0420
+  109   0.0430
+  110   0.0419
+  111   0.0466
+  112   0.0451
+  113   0.0498
+  114   0.0540
+  115   0.0596
+  116   0.0457
+  117   0.0416
+  118   0.0423
+  119   0.0397
+  120   0.0419
+  121   0.0499
+  122   0.0723
+  123   0.1109
+  124   0.1990
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                     Gyas ROwers Mature At Cryogenic Speed
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf10.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   90000   First frame (ps) to read from trajectory
+-e           time   100000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 90000.000   Reading frame       1 time 90010.000   Reading frame       2 time 90020.000   Reading frame       3 time 90030.000   Reading frame       4 time 90040.000   Reading frame       5 time 90050.000   Reading frame       6 time 90060.000   Reading frame       7 time 90070.000   Reading frame       8 time 90080.000   Reading frame       9 time 90090.000   Reading frame      10 time 90100.000   Reading frame      11 time 90110.000   Reading frame      12 time 90120.000   Reading frame      13 time 90130.000   Reading frame      14 time 90140.000   Reading frame      15 time 90150.000   Reading frame      16 time 90160.000   Reading frame      17 time 90170.000   Reading frame      18 time 90180.000   Reading frame      19 time 90190.000   Reading frame      20 time 90200.000   Reading frame      30 time 90300.000   Reading frame      40 time 90400.000   Reading frame      50 time 90500.000   Reading frame      60 time 90600.000   Reading frame      70 time 90700.000   Reading frame      80 time 90800.000   Reading frame      90 time 90900.000   Reading frame     100 time 91000.000   Reading frame     110 time 91100.000   Reading frame     120 time 91200.000   Reading frame     130 time 91300.000   Reading frame     140 time 91400.000   Reading frame     150 time 91500.000   Reading frame     160 time 91600.000   Reading frame     170 time 91700.000   Reading frame     180 time 91800.000   Reading frame     190 time 91900.000   Reading frame     200 time 92000.000   Reading frame     300 time 93000.000   Reading frame     400 time 94000.000   Reading frame     500 time 95000.000   Reading frame     600 time 96000.000   Reading frame     700 time 97000.000   Reading frame     800 time 98000.000   Reading frame     900 time 99000.000   Reading frame    1000 time 100000.000   Last frame       1000 time 100000.000   
+
+gcq#165: "Welcome to the Power Age" (2 Unlimited)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf10.xvg -> rmsf10.oct
+   10   0.0819
+   11   0.0566
+   12   0.0479
+   13   0.0504
+   14   0.0451
+   15   0.0425
+   16   0.0404
+   17   0.0433
+   18   0.0709
+   19   0.0947
+   20   0.1697
+   21   0.1636
+   22   0.1239
+   23   0.0676
+   24   0.0600
+   25   0.0509
+   26   0.0544
+   27   0.0529
+   28   0.0450
+   29   0.0446
+   30   0.0425
+   31   0.0443
+   32   0.0410
+   33   0.0456
+   34   0.0476
+   35   0.0594
+   36   0.0846
+   37   0.1245
+   38   0.1395
+   39   0.1228
+   40   0.0963
+   41   0.0699
+   42   0.0639
+   43   0.0592
+   44   0.0516
+   45   0.0513
+   46   0.0539
+   47   0.0553
+   48   0.0501
+   49   0.0434
+   50   0.0567
+   51   0.0715
+   52   0.0679
+   53   0.0515
+   54   0.0525
+   55   0.0488
+   56   0.0548
+   57   0.0718
+   58   0.0827
+   59   0.0738
+   60   0.0778
+   61   0.0820
+   62   0.0973
+   63   0.0856
+   64   0.0653
+   65   0.0755
+   66   0.0705
+   67   0.0616
+   68   0.0479
+   69   0.0398
+   70   0.0429
+   71   0.0410
+   72   0.0421
+   73   0.0422
+   74   0.0469
+   75   0.0453
+   76   0.0606
+   77   0.0645
+   78   0.0539
+   79   0.0539
+   80   0.0729
+   81   0.0875
+   82   0.0888
+   83   0.0866
+   84   0.0710
+   85   0.0783
+   86   0.0615
+   87   0.0566
+   88   0.0520
+   89   0.0458
+   90   0.0476
+   91   0.0500
+   92   0.0483
+   93   0.0423
+   94   0.0388
+   95   0.0388
+   96   0.0446
+   97   0.0504
+   98   0.0612
+   99   0.0867
+  100   0.1082
+  101   0.1027
+  102   0.0806
+  103   0.0597
+  104   0.0542
+  105   0.0452
+  106   0.0467
+  107   0.0453
+  108   0.0430
+  109   0.0457
+  110   0.0423
+  111   0.0454
+  112   0.0456
+  113   0.0509
+  114   0.0473
+  115   0.0489
+  116   0.0530
+  117   0.0425
+  118   0.0428
+  119   0.0451
+  120   0.0502
+  121   0.0579
+  122   0.0626
+  123   0.0699
+  124   0.0838
+  125   0.1129
+   10   0.1102
+   11   0.0792
+   12   0.0659
+   13   0.0618
+   14   0.0542
+   15   0.0504
+   16   0.0473
+   17   0.0502
+   18   0.0675
+   19   0.0852
+   20   0.1622
+   21   0.1538
+   22   0.1214
+   23   0.0771
+   24   0.0659
+   25   0.0548
+   26   0.0568
+   27   0.0567
+   28   0.0486
+   29   0.0491
+   30   0.0428
+   31   0.0428
+   32   0.0471
+   33   0.0563
+   34   0.0637
+   35   0.0744
+   36   0.1130
+   37   0.1433
+   38   0.1665
+   39   0.1621
+   40   0.1317
+   41   0.0953
+   42   0.0941
+   43   0.0904
+   44   0.0857
+   45   0.0671
+   46   0.0508
+   47   0.0653
+   48   0.0548
+   49   0.0475
+   50   0.0582
+   51   0.0744
+   52   0.0749
+   53   0.0578
+   54   0.0600
+   55   0.0626
+   56   0.1131
+   57   0.1392
+   58   0.0921
+   59   0.1156
+   60   0.1063
+   61   0.0995
+   62   0.1253
+   63   0.1115
+   64   0.0902
+   65   0.0875
+   66   0.0827
+   67   0.0739
+   68   0.0537
+   69   0.0483
+   70   0.0508
+   71   0.0434
+   72   0.0443
+   73   0.0453
+   74   0.0502
+   75   0.0536
+   76   0.0672
+   77   0.0799
+   78   0.0617
+   79   0.0598
+   80   0.0757
+   81   0.0907
+   82   0.0907
+   83   0.0879
+   84   0.0749
+   85   0.0780
+   86   0.0591
+   87   0.0493
+   88   0.0466
+   89   0.0435
+   90   0.0447
+   91   0.0474
+   92   0.0499
+   93   0.0543
+   94   0.0487
+   95   0.0491
+   96   0.0562
+   97   0.0702
+   98   0.0990
+   99   0.1256
+  100   0.1327
+  101   0.1547
+  102   0.1289
+  103   0.1117
+  104   0.0748
+  105   0.0581
+  106   0.0522
+  107   0.0512
+  108   0.0503
+  109   0.0483
+  110   0.0442
+  111   0.0491
+  112   0.0478
+  113   0.0494
+  114   0.0522
+  115   0.0631
+  116   0.0476
+  117   0.0431
+  118   0.0489
+  119   0.0463
+  120   0.0439
+  121   0.0521
+  122   0.0700
+  123   0.1005
+  124   0.1832
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                     Gnomes, ROck Monsters And Chili Sauce
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf11.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   100000  First frame (ps) to read from trajectory
+-e           time   110000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 100000.000   Reading frame       1 time 100010.000   Reading frame       2 time 100020.000   Reading frame       3 time 100030.000   Reading frame       4 time 100040.000   Reading frame       5 time 100050.000   Reading frame       6 time 100060.000   Reading frame       7 time 100070.000   Reading frame       8 time 100080.000   Reading frame       9 time 100090.000   Reading frame      10 time 100100.000   Reading frame      11 time 100110.000   Reading frame      12 time 100120.000   Reading frame      13 time 100130.000   Reading frame      14 time 100140.000   Reading frame      15 time 100150.000   Reading frame      16 time 100160.000   Reading frame      17 time 100170.000   Reading frame      18 time 100180.000   Reading frame      19 time 100190.000   Reading frame      20 time 100200.000   Reading frame      30 time 100300.000   Reading frame      40 time 100400.000   Reading frame      50 time 100500.000   Reading frame      60 time 100600.000   Reading frame      70 time 100700.000   Reading frame      80 time 100800.000   Reading frame      90 time 100900.000   Reading frame     100 time 101000.000   Reading frame     110 time 101100.000   Reading frame     120 time 101200.000   Reading frame     130 time 101300.000   Reading frame     140 time 101400.000   Reading frame     150 time 101500.000   Reading frame     160 time 101600.000   Reading frame     170 time 101700.000   Reading frame     180 time 101800.000   Reading frame     190 time 101900.000   Reading frame     200 time 102000.000   Reading frame     300 time 103000.000   Reading frame     400 time 104000.000   Reading frame     500 time 105000.000   Reading frame     600 time 106000.000   Reading frame     700 time 107000.000   Reading frame     800 time 108000.000   Reading frame     900 time 109000.000   Reading frame    1000 time 110000.000   Last frame       1000 time 110000.000   
+
+gcq#165: "Welcome to the Power Age" (2 Unlimited)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf11.xvg -> rmsf11.oct
+   10   0.1008
+   11   0.0639
+   12   0.0521
+   13   0.0521
+   14   0.0458
+   15   0.0440
+   16   0.0413
+   17   0.0468
+   18   0.0685
+   19   0.0824
+   20   0.1444
+   21   0.1382
+   22   0.1083
+   23   0.0714
+   24   0.0608
+   25   0.0512
+   26   0.0558
+   27   0.0608
+   28   0.0485
+   29   0.0498
+   30   0.0461
+   31   0.0487
+   32   0.0434
+   33   0.0481
+   34   0.0552
+   35   0.0658
+   36   0.1159
+   37   0.1529
+   38   0.1694
+   39   0.1758
+   40   0.1285
+   41   0.0807
+   42   0.0736
+   43   0.0659
+   44   0.0582
+   45   0.0578
+   46   0.0591
+   47   0.0617
+   48   0.0566
+   49   0.0508
+   50   0.0673
+   51   0.0714
+   52   0.0686
+   53   0.0531
+   54   0.0538
+   55   0.0561
+   56   0.0951
+   57   0.1063
+   58   0.0858
+   59   0.0904
+   60   0.0980
+   61   0.1059
+   62   0.1164
+   63   0.1017
+   64   0.0738
+   65   0.0762
+   66   0.0693
+   67   0.0633
+   68   0.0498
+   69   0.0401
+   70   0.0421
+   71   0.0395
+   72   0.0438
+   73   0.0485
+   74   0.0521
+   75   0.0597
+   76   0.0713
+   77   0.0729
+   78   0.0599
+   79   0.0595
+   80   0.0751
+   81   0.0860
+   82   0.0853
+   83   0.0847
+   84   0.0741
+   85   0.0799
+   86   0.0633
+   87   0.0514
+   88   0.0556
+   89   0.0741
+   90   0.0474
+   91   0.0667
+   92   0.0704
+   93   0.0486
+   94   0.0412
+   95   0.0401
+   96   0.0456
+   97   0.0509
+   98   0.0672
+   99   0.0986
+  100   0.1225
+  101   0.1162
+  102   0.0886
+  103   0.0657
+  104   0.0566
+  105   0.0468
+  106   0.0480
+  107   0.0469
+  108   0.0446
+  109   0.0464
+  110   0.0434
+  111   0.0489
+  112   0.0489
+  113   0.0509
+  114   0.0455
+  115   0.0503
+  116   0.0490
+  117   0.0425
+  118   0.0436
+  119   0.0455
+  120   0.0504
+  121   0.0581
+  122   0.0629
+  123   0.0731
+  124   0.0925
+  125   0.1240
+   10   0.1090
+   11   0.0792
+   12   0.0616
+   13   0.0535
+   14   0.0532
+   15   0.0505
+   16   0.0493
+   17   0.0514
+   18   0.0501
+   19   0.0678
+   20   0.0798
+   21   0.0836
+   22   0.0817
+   23   0.0799
+   24   0.0650
+   25   0.0534
+   26   0.0548
+   27   0.0593
+   28   0.0505
+   29   0.0493
+   30   0.0441
+   31   0.0460
+   32   0.0490
+   33   0.0579
+   34   0.0646
+   35   0.0760
+   36   0.1099
+   37   0.1734
+   38   0.2252
+   39   0.1977
+   40   0.1321
+   41   0.0971
+   42   0.0935
+   43   0.0870
+   44   0.0805
+   45   0.0677
+   46   0.0562
+   47   0.0735
+   48   0.0626
+   49   0.0527
+   50   0.0612
+   51   0.0720
+   52   0.0751
+   53   0.0597
+   54   0.0646
+   55   0.0730
+   56   0.1640
+   57   0.1956
+   58   0.1006
+   59   0.1111
+   60   0.1115
+   61   0.1236
+   62   0.1415
+   63   0.1234
+   64   0.0927
+   65   0.0920
+   66   0.0833
+   67   0.0770
+   68   0.0613
+   69   0.0515
+   70   0.0500
+   71   0.0460
+   72   0.0459
+   73   0.0457
+   74   0.0489
+   75   0.0537
+   76   0.0642
+   77   0.0694
+   78   0.0601
+   79   0.0603
+   80   0.0865
+   81   0.1049
+   82   0.0975
+   83   0.0932
+   84   0.0807
+   85   0.0778
+   86   0.0575
+   87   0.0487
+   88   0.0465
+   89   0.0445
+   90   0.0455
+   91   0.0525
+   92   0.0538
+   93   0.0601
+   94   0.0549
+   95   0.0503
+   96   0.0568
+   97   0.0666
+   98   0.1087
+   99   0.1289
+  100   0.1395
+  101   0.1389
+  102   0.1148
+  103   0.1128
+  104   0.0842
+  105   0.0545
+  106   0.0497
+  107   0.0497
+  108   0.0515
+  109   0.0513
+  110   0.0475
+  111   0.0500
+  112   0.0501
+  113   0.0519
+  114   0.0554
+  115   0.0702
+  116   0.0518
+  117   0.0430
+  118   0.0476
+  119   0.0446
+  120   0.0436
+  121   0.0549
+  122   0.0790
+  123   0.1123
+  124   0.1944
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                     Gnomes, ROck Monsters And Chili Sauce
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf12.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   110000  First frame (ps) to read from trajectory
+-e           time   120000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 110000.000   Reading frame       1 time 110010.000   Reading frame       2 time 110020.000   Reading frame       3 time 110030.000   Reading frame       4 time 110040.000   Reading frame       5 time 110050.000   Reading frame       6 time 110060.000   Reading frame       7 time 110070.000   Reading frame       8 time 110080.000   Reading frame       9 time 110090.000   Reading frame      10 time 110100.000   Reading frame      11 time 110110.000   Reading frame      12 time 110120.000   Reading frame      13 time 110130.000   Reading frame      14 time 110140.000   Reading frame      15 time 110150.000   Reading frame      16 time 110160.000   Reading frame      17 time 110170.000   Reading frame      18 time 110180.000   Reading frame      19 time 110190.000   Reading frame      20 time 110200.000   Reading frame      30 time 110300.000   Reading frame      40 time 110400.000   Reading frame      50 time 110500.000   Reading frame      60 time 110600.000   Reading frame      70 time 110700.000   Reading frame      80 time 110800.000   Reading frame      90 time 110900.000   Reading frame     100 time 111000.000   Reading frame     110 time 111100.000   Reading frame     120 time 111200.000   Reading frame     130 time 111300.000   Reading frame     140 time 111400.000   Reading frame     150 time 111500.000   Reading frame     160 time 111600.000   Reading frame     170 time 111700.000   Reading frame     180 time 111800.000   Reading frame     190 time 111900.000   Reading frame     200 time 112000.000   Reading frame     300 time 113000.000   Reading frame     400 time 114000.000   Reading frame     500 time 115000.000   Reading frame     600 time 116000.000   Reading frame     700 time 117000.000   Reading frame     800 time 118000.000   Reading frame     900 time 119000.000   Reading frame    1000 time 120000.000   Last frame       1000 time 120000.000   
+
+gcq#278: "All I Ever Wanted Was Your Life" (Red Hot Chili Peppers)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf12.xvg -> rmsf12.oct
+   10   0.1177
+   11   0.0666
+   12   0.0530
+   13   0.0560
+   14   0.0517
+   15   0.0452
+   16   0.0414
+   17   0.0441
+   18   0.0699
+   19   0.0995
+   20   0.1748
+   21   0.1701
+   22   0.1351
+   23   0.0800
+   24   0.0608
+   25   0.0542
+   26   0.0576
+   27   0.0648
+   28   0.0534
+   29   0.0537
+   30   0.0465
+   31   0.0474
+   32   0.0445
+   33   0.0514
+   34   0.0542
+   35   0.0708
+   36   0.1733
+   37   0.1607
+   38   0.1720
+   39   0.1632
+   40   0.1178
+   41   0.0797
+   42   0.0742
+   43   0.0700
+   44   0.0566
+   45   0.0574
+   46   0.0571
+   47   0.0612
+   48   0.0554
+   49   0.0487
+   50   0.0598
+   51   0.0704
+   52   0.0676
+   53   0.0523
+   54   0.0524
+   55   0.0581
+   56   0.0898
+   57   0.1137
+   58   0.0772
+   59   0.0799
+   60   0.0908
+   61   0.0962
+   62   0.1085
+   63   0.0891
+   64   0.0672
+   65   0.0691
+   66   0.0663
+   67   0.0673
+   68   0.0545
+   69   0.0448
+   70   0.0500
+   71   0.0455
+   72   0.0481
+   73   0.0483
+   74   0.0554
+   75   0.0664
+   76   0.0992
+   77   0.0971
+   78   0.0698
+   79   0.0660
+   80   0.0912
+   81   0.1069
+   82   0.1009
+   83   0.0914
+   84   0.0756
+   85   0.0794
+   86   0.0598
+   87   0.0508
+   88   0.0511
+   89   0.0478
+   90   0.0472
+   91   0.0568
+   92   0.0649
+   93   0.0491
+   94   0.0462
+   95   0.0442
+   96   0.0490
+   97   0.0530
+   98   0.0621
+   99   0.0913
+  100   0.1090
+  101   0.1037
+  102   0.0805
+  103   0.0627
+  104   0.0572
+  105   0.0480
+  106   0.0508
+  107   0.0497
+  108   0.0455
+  109   0.0481
+  110   0.0431
+  111   0.0504
+  112   0.0504
+  113   0.0530
+  114   0.0481
+  115   0.0536
+  116   0.0522
+  117   0.0445
+  118   0.0463
+  119   0.0470
+  120   0.0522
+  121   0.0595
+  122   0.0645
+  123   0.0769
+  124   0.0947
+  125   0.1235
+   10   0.1000
+   11   0.0764
+   12   0.0523
+   13   0.0564
+   14   0.0493
+   15   0.0483
+   16   0.0447
+   17   0.0475
+   18   0.0462
+   19   0.0641
+   20   0.0748
+   21   0.0750
+   22   0.0714
+   23   0.0748
+   24   0.0613
+   25   0.0492
+   26   0.0531
+   27   0.0559
+   28   0.0487
+   29   0.0489
+   30   0.0450
+   31   0.0462
+   32   0.0454
+   33   0.0527
+   34   0.0566
+   35   0.0675
+   36   0.0984
+   37   0.1409
+   38   0.1591
+   39   0.1362
+   40   0.1090
+   41   0.0824
+   42   0.0794
+   43   0.0730
+   44   0.0626
+   45   0.0571
+   46   0.0553
+   47   0.0668
+   48   0.0566
+   49   0.0479
+   50   0.0591
+   51   0.0817
+   52   0.0759
+   53   0.0555
+   54   0.0571
+   55   0.0598
+   56   0.0933
+   57   0.1095
+   58   0.1107
+   59   0.0999
+   60   0.1034
+   61   0.1069
+   62   0.1372
+   63   0.1259
+   64   0.0922
+   65   0.0810
+   66   0.0771
+   67   0.0727
+   68   0.0538
+   69   0.0468
+   70   0.0577
+   71   0.0498
+   72   0.0483
+   73   0.0462
+   74   0.0474
+   75   0.0598
+   76   0.0730
+   77   0.0752
+   78   0.0604
+   79   0.0643
+   80   0.0981
+   81   0.1135
+   82   0.0884
+   83   0.0849
+   84   0.0790
+   85   0.0859
+   86   0.0628
+   87   0.0508
+   88   0.0515
+   89   0.0483
+   90   0.0491
+   91   0.0539
+   92   0.0617
+   93   0.0654
+   94   0.0536
+   95   0.0484
+   96   0.0556
+   97   0.0673
+   98   0.0935
+   99   0.1229
+  100   0.1289
+  101   0.1317
+  102   0.1122
+  103   0.0869
+  104   0.0689
+  105   0.0527
+  106   0.0484
+  107   0.0484
+  108   0.0460
+  109   0.0472
+  110   0.0439
+  111   0.0474
+  112   0.0483
+  113   0.0511
+  114   0.0532
+  115   0.0672
+  116   0.0530
+  117   0.0432
+  118   0.0455
+  119   0.0441
+  120   0.0442
+  121   0.0590
+  122   0.0823
+  123   0.1125
+  124   0.1999
+                         :-)  G  R  O  M  A  C  S  (-:
+
+            Georgetown Riga Oslo Madrid Amsterdam Chisinau Stockholm
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf13.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   120000  First frame (ps) to read from trajectory
+-e           time   130000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 120000.000   Reading frame       1 time 120010.000   Reading frame       2 time 120020.000   Reading frame       3 time 120030.000   Reading frame       4 time 120040.000   Reading frame       5 time 120050.000   Reading frame       6 time 120060.000   Reading frame       7 time 120070.000   Reading frame       8 time 120080.000   Reading frame       9 time 120090.000   Reading frame      10 time 120100.000   Reading frame      11 time 120110.000   Reading frame      12 time 120120.000   Reading frame      13 time 120130.000   Reading frame      14 time 120140.000   Reading frame      15 time 120150.000   Reading frame      16 time 120160.000   Reading frame      17 time 120170.000   Reading frame      18 time 120180.000   Reading frame      19 time 120190.000   Reading frame      20 time 120200.000   Reading frame      30 time 120300.000   Reading frame      40 time 120400.000   Reading frame      50 time 120500.000   Reading frame      60 time 120600.000   Reading frame      70 time 120700.000   Reading frame      80 time 120800.000   Reading frame      90 time 120900.000   Reading frame     100 time 121000.000   Reading frame     110 time 121100.000   Reading frame     120 time 121200.000   Reading frame     130 time 121300.000   Reading frame     140 time 121400.000   Reading frame     150 time 121500.000   Reading frame     160 time 121600.000   Reading frame     170 time 121700.000   Reading frame     180 time 121800.000   Reading frame     190 time 121900.000   Reading frame     200 time 122000.000   Reading frame     300 time 123000.000   Reading frame     400 time 124000.000   Reading frame     500 time 125000.000   Reading frame     600 time 126000.000   Reading frame     700 time 127000.000   Reading frame     800 time 128000.000   Reading frame     900 time 129000.000   Reading frame    1000 time 130000.000   Last frame       1000 time 130000.000   
+
+gcq#31: "In a Deep Deep Well" (Nick Cave)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf13.xvg -> rmsf13.oct
+   10   0.1126
+   11   0.0673
+   12   0.0494
+   13   0.0489
+   14   0.0504
+   15   0.0480
+   16   0.0440
+   17   0.0475
+   18   0.0576
+   19   0.0786
+   20   0.1225
+   21   0.1181
+   22   0.1017
+   23   0.0738
+   24   0.0614
+   25   0.0536
+   26   0.0582
+   27   0.0643
+   28   0.0518
+   29   0.0492
+   30   0.0456
+   31   0.0473
+   32   0.0451
+   33   0.0517
+   34   0.0542
+   35   0.0708
+   36   0.1455
+   37   0.1568
+   38   0.1674
+   39   0.1575
+   40   0.1107
+   41   0.0774
+   42   0.0722
+   43   0.0694
+   44   0.0577
+   45   0.0588
+   46   0.0585
+   47   0.0620
+   48   0.0548
+   49   0.0504
+   50   0.0620
+   51   0.0726
+   52   0.0693
+   53   0.0540
+   54   0.0550
+   55   0.0598
+   56   0.0973
+   57   0.1145
+   58   0.0783
+   59   0.0710
+   60   0.0800
+   61   0.0879
+   62   0.1010
+   63   0.0860
+   64   0.0691
+   65   0.0721
+   66   0.0674
+   67   0.0637
+   68   0.0482
+   69   0.0410
+   70   0.0461
+   71   0.0434
+   72   0.0468
+   73   0.0479
+   74   0.0502
+   75   0.0583
+   76   0.0792
+   77   0.0852
+   78   0.0686
+   79   0.0731
+   80   0.0991
+   81   0.1091
+   82   0.0995
+   83   0.0978
+   84   0.0843
+   85   0.0918
+   86   0.0858
+   87   0.0658
+   88   0.0573
+   89   0.0527
+   90   0.0485
+   91   0.0567
+   92   0.0586
+   93   0.0553
+   94   0.0455
+   95   0.0411
+   96   0.0455
+   97   0.0515
+   98   0.0675
+   99   0.0933
+  100   0.1129
+  101   0.1087
+  102   0.0891
+  103   0.0654
+  104   0.0583
+  105   0.0462
+  106   0.0482
+  107   0.0493
+  108   0.0525
+  109   0.0515
+  110   0.0467
+  111   0.0526
+  112   0.0556
+  113   0.0570
+  114   0.0511
+  115   0.0533
+  116   0.0543
+  117   0.0473
+  118   0.0489
+  119   0.0471
+  120   0.0452
+  121   0.0553
+  122   0.0622
+  123   0.0769
+  124   0.0951
+  125   0.1245
+   10   0.1651
+   11   0.0821
+   12   0.0605
+   13   0.0561
+   14   0.0471
+   15   0.0475
+   16   0.0428
+   17   0.0459
+   18   0.0609
+   19   0.0804
+   20   0.1480
+   21   0.1403
+   22   0.1178
+   23   0.0782
+   24   0.0652
+   25   0.0576
+   26   0.0607
+   27   0.0636
+   28   0.0548
+   29   0.0529
+   30   0.0497
+   31   0.0520
+   32   0.0594
+   33   0.0646
+   34   0.0677
+   35   0.0752
+   36   0.1105
+   37   0.1555
+   38   0.1730
+   39   0.1454
+   40   0.1252
+   41   0.0971
+   42   0.0999
+   43   0.1038
+   44   0.1034
+   45   0.0881
+   46   0.0640
+   47   0.0689
+   48   0.0627
+   49   0.0527
+   50   0.0638
+   51   0.0756
+   52   0.0744
+   53   0.0569
+   54   0.0597
+   55   0.0642
+   56   0.0985
+   57   0.2498
+   58   0.2529
+   59   0.1894
+   60   0.1200
+   61   0.1213
+   62   0.1733
+   63   0.1739
+   64   0.1370
+   65   0.1117
+   66   0.1009
+   67   0.0841
+   68   0.0619
+   69   0.0526
+   70   0.0539
+   71   0.0526
+   72   0.0512
+   73   0.0511
+   74   0.0545
+   75   0.0687
+   76   0.0839
+   77   0.0987
+   78   0.0741
+   79   0.0692
+   80   0.0928
+   81   0.1231
+   82   0.1129
+   83   0.0937
+   84   0.0742
+   85   0.0808
+   86   0.0695
+   87   0.0534
+   88   0.0523
+   89   0.0507
+   90   0.0527
+   91   0.0570
+   92   0.0615
+   93   0.0651
+   94   0.0524
+   95   0.0528
+   96   0.0655
+   97   0.0849
+   98   0.1091
+   99   0.1430
+  100   0.1610
+  101   0.1712
+  102   0.1446
+  103   0.1150
+  104   0.0837
+  105   0.0592
+  106   0.0534
+  107   0.0506
+  108   0.0501
+  109   0.0499
+  110   0.0439
+  111   0.0506
+  112   0.0480
+  113   0.0497
+  114   0.0481
+  115   0.0557
+  116   0.0568
+  117   0.0474
+  118   0.0548
+  119   0.0514
+  120   0.0489
+  121   0.0668
+  122   0.0797
+  123   0.1020
+  124   0.1808
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                       GRowing Old MAkes el Chrono Sweat
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf14.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   130000  First frame (ps) to read from trajectory
+-e           time   140000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 130000.000   Reading frame       1 time 130010.000   Reading frame       2 time 130020.000   Reading frame       3 time 130030.000   Reading frame       4 time 130040.000   Reading frame       5 time 130050.000   Reading frame       6 time 130060.000   Reading frame       7 time 130070.000   Reading frame       8 time 130080.000   Reading frame       9 time 130090.000   Reading frame      10 time 130100.000   Reading frame      11 time 130110.000   Reading frame      12 time 130120.000   Reading frame      13 time 130130.000   Reading frame      14 time 130140.000   Reading frame      15 time 130150.000   Reading frame      16 time 130160.000   Reading frame      17 time 130170.000   Reading frame      18 time 130180.000   Reading frame      19 time 130190.000   Reading frame      20 time 130200.000   Reading frame      30 time 130300.000   Reading frame      40 time 130400.000   Reading frame      50 time 130500.000   Reading frame      60 time 130600.000   Reading frame      70 time 130700.000   Reading frame      80 time 130800.000   Reading frame      90 time 130900.000   Reading frame     100 time 131000.000   Reading frame     110 time 131100.000   Reading frame     120 time 131200.000   Reading frame     130 time 131300.000   Reading frame     140 time 131400.000   Reading frame     150 time 131500.000   Reading frame     160 time 131600.000   Reading frame     170 time 131700.000   Reading frame     180 time 131800.000   Reading frame     190 time 131900.000   Reading frame     200 time 132000.000   Reading frame     300 time 133000.000   Reading frame     400 time 134000.000   Reading frame     500 time 135000.000   Reading frame     600 time 136000.000   Reading frame     700 time 137000.000   Reading frame     800 time 138000.000   Reading frame     900 time 139000.000   Reading frame    1000 time 140000.000   Last frame       1000 time 140000.000   
+
+gcq#145: "It Doesn't Have to Be Tip Top" (Pulp Fiction)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf14.xvg -> rmsf14.oct
+   10   0.1035
+   11   0.0618
+   12   0.0516
+   13   0.0456
+   14   0.0479
+   15   0.0442
+   16   0.0404
+   17   0.0432
+   18   0.0451
+   19   0.0698
+   20   0.0899
+   21   0.0875
+   22   0.0766
+   23   0.0733
+   24   0.0572
+   25   0.0482
+   26   0.0507
+   27   0.0537
+   28   0.0466
+   29   0.0453
+   30   0.0433
+   31   0.0474
+   32   0.0478
+   33   0.0514
+   34   0.0548
+   35   0.0675
+   36   0.1554
+   37   0.1740
+   38   0.2040
+   39   0.1763
+   40   0.1467
+   41   0.0839
+   42   0.0785
+   43   0.0716
+   44   0.0608
+   45   0.0626
+   46   0.0590
+   47   0.0585
+   48   0.0528
+   49   0.0459
+   50   0.0561
+   51   0.0682
+   52   0.0647
+   53   0.0513
+   54   0.0492
+   55   0.0552
+   56   0.0792
+   57   0.1140
+   58   0.0786
+   59   0.0856
+   60   0.0981
+   61   0.1054
+   62   0.1108
+   63   0.0957
+   64   0.0718
+   65   0.0767
+   66   0.0711
+   67   0.0685
+   68   0.0537
+   69   0.0466
+   70   0.0545
+   71   0.0467
+   72   0.0469
+   73   0.0439
+   74   0.0484
+   75   0.0543
+   76   0.0724
+   77   0.0805
+   78   0.0675
+   79   0.0727
+   80   0.1091
+   81   0.1184
+   82   0.0927
+   83   0.0908
+   84   0.0860
+   85   0.0932
+   86   0.0687
+   87   0.0580
+   88   0.0546
+   89   0.0471
+   90   0.0446
+   91   0.0541
+   92   0.0614
+   93   0.0477
+   94   0.0458
+   95   0.0437
+   96   0.0485
+   97   0.0520
+   98   0.0631
+   99   0.0866
+  100   0.1102
+  101   0.1060
+  102   0.0834
+  103   0.0600
+  104   0.0532
+  105   0.0449
+  106   0.0453
+  107   0.0451
+  108   0.0436
+  109   0.0448
+  110   0.0403
+  111   0.0464
+  112   0.0490
+  113   0.0543
+  114   0.0522
+  115   0.0517
+  116   0.0457
+  117   0.0411
+  118   0.0427
+  119   0.0426
+  120   0.0440
+  121   0.0503
+  122   0.0548
+  123   0.0664
+  124   0.0800
+  125   0.1041
+   10   0.1123
+   11   0.0795
+   12   0.0590
+   13   0.0544
+   14   0.0499
+   15   0.0502
+   16   0.0439
+   17   0.0505
+   18   0.0637
+   19   0.0713
+   20   0.1270
+   21   0.1094
+   22   0.0969
+   23   0.0848
+   24   0.0677
+   25   0.0536
+   26   0.0557
+   27   0.0607
+   28   0.0509
+   29   0.0555
+   30   0.0494
+   31   0.0486
+   32   0.0512
+   33   0.0561
+   34   0.0600
+   35   0.0716
+   36   0.1054
+   37   0.1556
+   38   0.1666
+   39   0.1373
+   40   0.1163
+   41   0.0879
+   42   0.0880
+   43   0.0826
+   44   0.0797
+   45   0.0746
+   46   0.0630
+   47   0.0757
+   48   0.0681
+   49   0.0515
+   50   0.0616
+   51   0.0724
+   52   0.0736
+   53   0.0543
+   54   0.0602
+   55   0.0648
+   56   0.0776
+   57   0.1058
+   58   0.1311
+   59   0.1124
+   60   0.1105
+   61   0.1177
+   62   0.1484
+   63   0.1428
+   64   0.1078
+   65   0.0951
+   66   0.0917
+   67   0.0751
+   68   0.0569
+   69   0.0486
+   70   0.0488
+   71   0.0462
+   72   0.0451
+   73   0.0511
+   74   0.0576
+   75   0.0674
+   76   0.0954
+   77   0.1154
+   78   0.0743
+   79   0.0634
+   80   0.0812
+   81   0.0947
+   82   0.0946
+   83   0.0944
+   84   0.0763
+   85   0.0837
+   86   0.0662
+   87   0.0484
+   88   0.0474
+   89   0.0482
+   90   0.0543
+   91   0.0553
+   92   0.0565
+   93   0.0572
+   94   0.0499
+   95   0.0474
+   96   0.0598
+   97   0.0791
+   98   0.1316
+   99   0.1501
+  100   0.1621
+  101   0.1754
+  102   0.1499
+  103   0.1187
+  104   0.0803
+  105   0.0593
+  106   0.0501
+  107   0.0526
+  108   0.0530
+  109   0.0491
+  110   0.0466
+  111   0.0521
+  112   0.0486
+  113   0.0480
+  114   0.0447
+  115   0.0505
+  116   0.0533
+  117   0.0501
+  118   0.0512
+  119   0.0497
+  120   0.0478
+  121   0.0598
+  122   0.0855
+  123   0.1272
+  124   0.2201
+                         :-)  G  R  O  M  A  C  S  (-:
+
+                 Good ROcking Metal Altar for Chronical Sinners
+
+                            :-)  VERSION 4.6.5  (-:
+
+        Contributions from Mark Abraham, Emile Apol, Rossen Apostolov, 
+           Herman J.C. Berendsen, Aldert van Buuren, Pär Bjelkmar,  
+     Rudi van Drunen, Anton Feenstra, Gerrit Groenhof, Christoph Junghans, 
+        Peter Kasson, Carsten Kutzner, Per Larsson, Pieter Meulenhoff, 
+           Teemu Murtola, Szilard Pall, Sander Pronk, Roland Schulz, 
+                Michael Shirts, Alfons Sijbers, Peter Tieleman,
+
+               Berk Hess, David van der Spoel, and Erik Lindahl.
+
+       Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+         Copyright (c) 2001-2012,2013, The GROMACS development team at
+        Uppsala University & The Royal Institute of Technology, Sweden.
+            check out http://www.gromacs.org for more information.
+
+         This program is free software; you can redistribute it and/or
+       modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+             of the License, or (at your option) any later version.
+
+                                :-)  g_rmsf  (-:
+
+Option     Filename  Type         Description
+------------------------------------------------------------
+  -f ../traj_centered_150ns.xtc  Input        Trajectory: xtc trr trj gro g96
+                                   pdb cpt
+  -s      ../md.tpr  Input        Structure+mass(db): tpr tpb tpa gro g96 pdb
+  -n  ../chains.ndx  Input, Opt!  Index file
+  -q      eiwit.pdb  Input, Opt.  Protein data bank file
+ -oq       bfac.pdb  Output, Opt. Protein data bank file
+ -ox      xaver.pdb  Output, Opt. Protein data bank file
+  -o     rmsf15.xvg  Output       xvgr/xmgr file
+ -od     rmsdev.xvg  Output, Opt. xvgr/xmgr file
+ -oc     correl.xvg  Output, Opt. xvgr/xmgr file
+-dir       rmsf.log  Output, Opt. Log file
+
+Option       Type   Value   Description
+------------------------------------------------------
+-[no]h       bool   no      Print help info and quit
+-[no]version bool   no      Print version info and quit
+-nice        int    19      Set the nicelevel
+-b           time   140000  First frame (ps) to read from trajectory
+-e           time   150000  Last frame (ps) to read from trajectory
+-dt          time   0       Only use frame when t MOD dt = first time (ps)
+-[no]w       bool   no      View output .xvg, .xpm, .eps and .pdb files
+-xvg         enum   xmgrace  xvg plot formatting: xmgrace, xmgr or none
+-[no]res     bool   yes     Calculate averages for each residue
+-[no]aniso   bool   no      Compute anisotropic termperature factors
+-[no]fit     bool   yes     Do a least squares superposition before computing
+                            RMSF. Without this you must make sure that the
+                            reference structure and the trajectory match.
+
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Reading file ../md.tpr, VERSION 4.6.5 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 49976 elements
+Group     1 (        Protein) has  3526 elements
+Group     2 (      Protein-H) has  1787 elements
+Group     3 (        C-alpha) has   231 elements
+Group     4 (       Backbone) has   693 elements
+Group     5 (      MainChain) has   922 elements
+Group     6 (   MainChain+Cb) has  1139 elements
+Group     7 (    MainChain+H) has  1144 elements
+Group     8 (      SideChain) has  2382 elements
+Group     9 (    SideChain-H) has   865 elements
+Group    10 (    Prot-Masses) has  3526 elements
+Group    11 (    non-Protein) has 46450 elements
+Group    12 (          Water) has 46350 elements
+Group    13 (            SOL) has 46350 elements
+Group    14 (      non-Water) has  3626 elements
+Group    15 (            Ion) has   100 elements
+Group    16 (             NA) has    54 elements
+Group    17 (             CL) has    46 elements
+Group    18 ( Water_and_ions) has 46450 elements
+Group    19 (       a_1-1770) has  1770 elements
+Group    20 (    a_1771-3526) has  1756 elements
+Select a group: Reading frame       0 time    0.000   Reading frame       0 time 140000.000   Reading frame       1 time 140010.000   Reading frame       2 time 140020.000   Reading frame       3 time 140030.000   Reading frame       4 time 140040.000   Reading frame       5 time 140050.000   Reading frame       6 time 140060.000   Reading frame       7 time 140070.000   Reading frame       8 time 140080.000   Reading frame       9 time 140090.000   Reading frame      10 time 140100.000   Reading frame      11 time 140110.000   Reading frame      12 time 140120.000   Reading frame      13 time 140130.000   Reading frame      14 time 140140.000   Reading frame      15 time 140150.000   Reading frame      16 time 140160.000   Reading frame      17 time 140170.000   Reading frame      18 time 140180.000   Reading frame      19 time 140190.000   Reading frame      20 time 140200.000   Reading frame      30 time 140300.000   Reading frame      40 time 140400.000   Reading frame      50 time 140500.000   Reading frame      60 time 140600.000   Reading frame      70 time 140700.000   Reading frame      80 time 140800.000   Reading frame      90 time 140900.000   Reading frame     100 time 141000.000   Reading frame     110 time 141100.000   Reading frame     120 time 141200.000   Reading frame     130 time 141300.000   Reading frame     140 time 141400.000   Reading frame     150 time 141500.000   Reading frame     160 time 141600.000   Reading frame     170 time 141700.000   Reading frame     180 time 141800.000   Reading frame     190 time 141900.000   Reading frame     200 time 142000.000   Reading frame     300 time 143000.000   Reading frame     400 time 144000.000   Reading frame     500 time 145000.000   Reading frame     600 time 146000.000   Reading frame     700 time 147000.000   Reading frame     800 time 148000.000   Reading frame     900 time 149000.000   Reading frame    1000 time 150000.000   Last frame       1000 time 150000.000   
+
+gcq#258: "Live for Liposuction" (Robbie Williams)
+
+Selected 3: 'C-alpha'
+xvg2octave v0.3 (C) 2005-2008 Marco Pasi
+xvg2octave: converting rmsf15.xvg -> rmsf15.oct
+   10   0.1066
+   11   0.0669
+   12   0.0534
+   13   0.0512
+   14   0.0484
+   15   0.0461
+   16   0.0428
+   17   0.0459
+   18   0.0631
+   19   0.1048
+   20   0.1784
+   21   0.1642
+   22   0.1279
+   23   0.0664
+   24   0.0663
+   25   0.0560
+   26   0.0574
+   27   0.0606
+   28   0.0506
+   29   0.0499
+   30   0.0452
+   31   0.0475
+   32   0.0463
+   33   0.0547
+   34   0.0613
+   35   0.0766
+   36   0.1422
+   37   0.1731
+   38   0.1813
+   39   0.1606
+   40   0.1387
+   41   0.0899
+   42   0.0802
+   43   0.0721
+   44   0.0610
+   45   0.0588
+   46   0.0558
+   47   0.0641
+   48   0.0588
+   49   0.0512
+   50   0.0634
+   51   0.0716
+   52   0.0714
+   53   0.0588
+   54   0.0613
+   55   0.0650
+   56   0.0922
+   57   0.1029
+   58   0.0714
+   59   0.0732
+   60   0.0824
+   61   0.0895
+   62   0.1017
+   63   0.0888
+   64   0.0689
+   65   0.0780
+   66   0.0731
+   67   0.0741
+   68   0.0605
+   69   0.0496
+   70   0.0509
+   71   0.0430
+   72   0.0462
+   73   0.0467
+   74   0.0506
+   75   0.0513
+   76   0.0591
+   77   0.0647
+   78   0.0576
+   79   0.0611
+   80   0.0937
+   81   0.1278
+   82   0.1111
+   83   0.0994
+   84   0.0837
+   85   0.0804
+   86   0.0569
+   87   0.0496
+   88   0.0482
+   89   0.0462
+   90   0.0501
+   91   0.0510
+   92   0.0584
+   93   0.0504
+   94   0.0507
+   95   0.0512
+   96   0.0561
+   97   0.0575
+   98   0.0707
+   99   0.1045
+  100   0.1125
+  101   0.1054
+  102   0.0843
+  103   0.0703
+  104   0.0602
+  105   0.0498
+  106   0.0480
+  107   0.0477
+  108   0.0473
+  109   0.0497
+  110   0.0451
+  111   0.0472
+  112   0.0461
+  113   0.0552
+  114   0.0541
+  115   0.0517
+  116   0.0456
+  117   0.0424
+  118   0.0455
+  119   0.0490
+  120   0.0575
+  121   0.0635
+  122   0.0734
+  123   0.0810
+  124   0.0961
+  125   0.1147
+   10   0.1143
+   11   0.0826
+   12   0.0570
+   13   0.0558
+   14   0.0478
+   15   0.0456
+   16   0.0398
+   17   0.0438
+   18   0.0620
+   19   0.0757
+   20   0.1457
+   21   0.1385
+   22   0.1181
+   23   0.0824
+   24   0.0616
+   25   0.0515
+   26   0.0547
+   27   0.0570
+   28   0.0492
+   29   0.0522
+   30   0.0456
+   31   0.0487
+   32   0.0471
+   33   0.0528
+   34   0.0559
+   35   0.0660
+   36   0.1010
+   37   0.1649
+   38   0.2025
+   39   0.1673
+   40   0.1154
+   41   0.0852
+   42   0.0838
+   43   0.0783
+   44   0.0719
+   45   0.0663
+   46   0.0603
+   47   0.0715
+   48   0.0608
+   49   0.0516
+   50   0.0634
+   51   0.0732
+   52   0.0740
+   53   0.0577
+   54   0.0619
+   55   0.0606
+   56   0.0840
+   57   0.1443
+   58   0.1300
+   59   0.1218
+   60   0.1247
+   61   0.1157
+   62   0.1511
+   63   0.1489
+   64   0.1069
+   65   0.0922
+   66   0.0807
+   67   0.0746
+   68   0.0547
+   69   0.0460
+   70   0.0466
+   71   0.0444
+   72   0.0485
+   73   0.0500
+   74   0.0576
+   75   0.0676
+   76   0.0902
+   77   0.0937
+   78   0.0770
+   79   0.0774
+   80   0.1047
+   81   0.1222
+   82   0.1082
+   83   0.1082
+   84   0.0893
+   85   0.0953
+   86   0.0791
+   87   0.0691
+   88   0.0830
+   89   0.1124
+   90   0.0903
+   91   0.0550
+   92   0.0628
+   93   0.0629
+   94   0.0473
+   95   0.0471
+   96   0.0575
+   97   0.0675
+   98   0.0923
+   99   0.1353
+  100   0.1397
+  101   0.1356
+  102   0.1221
+  103   0.0890
+  104   0.0717
+  105   0.0629
+  106   0.0519
+  107   0.0487
+  108   0.0454
+  109   0.0443
+  110   0.0414
+  111   0.0486
+  112   0.0505
+  113   0.0580
+  114   0.0656
+  115   0.0525
+  116   0.0484
+  117   0.0438
+  118   0.0468
+  119   0.0468
+  120   0.0507
+  121   0.0695
+  122   0.1052
+  123   0.1552
+  124   0.2648
