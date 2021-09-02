@@ -1,0 +1,16 @@
+# Contact analysis:
+# - the analyze_contacts.py script, which performs the contact analysis,
+#   is called by the run_analysis.py wrapper script;
+# - the 'matrices' folder is created, where the matrices of contacts
+#   are stored.
+
+python3.7 run_analysis.py
+
+# Plotting:
+# - the plot_contacts.py script, which performs the plotting, is called
+#   by the run_plotting.py wrapper script;
+# - the 'plots' folder  is created, where the heatmaps showing the patterns
+#   of contacts in the reference structures and in the trajectories for the
+#   regions of interest are stored.
+
+python3.7 run_plotting.py
